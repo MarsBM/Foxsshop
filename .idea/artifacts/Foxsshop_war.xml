@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Foxsshop:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="Foxsshop.war">
+      <element id="artifact" artifact-name="Foxsshop:war exploded" />
+    </root>
+  </artifact>
+</component>
