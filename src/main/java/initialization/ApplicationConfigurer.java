@@ -41,14 +41,14 @@ import java.util.Properties;
 @PropertySource(value = "WEB-INF/jdbc.properties", encoding = "UTF-8")
 public class ApplicationConfigurer extends WebMvcConfigurerAdapter {
 
-    private static final String PROP_DATABASE_DRIVER = "com.mysql.jdbc.Driver";
+    private static final String PROP_DATABASE_DRIVER = "hibernate.connection.driver_class";
     private static final String PROP_DATABASE_PASSWORD = "hibernate.connection.password";
     private static final String PROP_DATABASE_URL = "hibernate.connection.url";
     private static final String PROP_DATABASE_USERNAME = "hibernate.connection.username";
-    private static final String PROP_HIBERNATE_DIALECT = "org.hibernate.dialect.MySQLDialect";
-    private static final String PROP_HIBERNATE_SHOW_SQL = "true";
-    private static final String PROP_ENTITYMANAGER_PACKAGES_TO_SCAN = "domain";
-    private static final String PROP_HIBERNATE_HBM2DDL_AUTO = "update";
+    private static final String PROP_HIBERNATE_DIALECT = "hibernate.dialect";
+    private static final String PROP_HIBERNATE_SHOW_SQL = "hibernate.show_sql";
+    private static final String PROP_ENTITYMANAGER_PACKAGES_TO_SCAN = "entitymanager.packages.to.scan";
+    private static final String PROP_HIBERNATE_HBM2DDL_AUTO = "hibernate.hbm2ddl.auto";
     private static final String PROP_HIBERNATE_CONNECTION_CHARSET = "hibernate.connection.charSet";
 
     @Resource
@@ -106,7 +106,7 @@ public class ApplicationConfigurer extends WebMvcConfigurerAdapter {
         return sessionFactory;
     }
 
-    @Bean
+    @Bean(name = "dataSource")
     public DriverManagerDataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(environment.getRequiredProperty(PROP_DATABASE_DRIVER));
