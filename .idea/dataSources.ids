@@ -16,35 +16,29 @@
       <schema id="5" name="oc"/>
       <schema id="6" name="performance_schema"/>
       <schema id="7" name="test"/>
-      <table id="8" parent="1" name="language"/>
-      <table id="9" parent="1" name="user"/>
-      <table id="10" parent="1" name="userrole"/>
-      <column id="11" parent="8" name="id">
+      <table id="8" parent="1" name="customer"/>
+      <table id="9" parent="1" name="language"/>
+      <table id="10" parent="1" name="telephone"/>
+      <table id="11" parent="1" name="user"/>
+      <table id="12" parent="1" name="userrole"/>
+      <column id="13" parent="8" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)|0</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="12" parent="8" name="code">
+      <column id="14" parent="8" name="email">
+        <data-type>varchar(255)|0</data-type>
+      </column>
+      <column id="15" parent="8" name="firstName">
         <mandatory>1</mandatory>
-        <data-type>varchar(5)|0</data-type>
+        <data-type>varchar(25)|0</data-type>
       </column>
-      <column id="13" parent="8" name="image">
-        <data-type>varchar(64)|0</data-type>
-      </column>
-      <column id="14" parent="8" name="isEnabled">
-        <data-type>bit(1)|0</data-type>
-      </column>
-      <column id="15" parent="8" name="name">
+      <column id="16" parent="8" name="lastName">
         <mandatory>1</mandatory>
-        <data-type>varchar(20)|0</data-type>
+        <data-type>varchar(25)|0</data-type>
       </column>
-      <index id="16" parent="8" name="UK_mf5wn2sc6j9c6y6jbj9wqdjh1">
-        <columns>code</columns>
-        <desc-columns></desc-columns>
-        <unique>1</unique>
-      </index>
-      <index id="17" parent="8" name="UK_nk4c9qcgv8el6abqd6etg77yy">
-        <columns>name</columns>
+      <index id="17" parent="8" name="UK_3qgg01qojcmbdp47dkaom9x45">
+        <columns>email</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
@@ -52,94 +46,156 @@
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <key id="19" parent="8" name="UK_mf5wn2sc6j9c6y6jbj9wqdjh1">
-        <columns>code</columns>
-        <underlying-index>UK_mf5wn2sc6j9c6y6jbj9wqdjh1</underlying-index>
+      <key id="19" parent="8" name="UK_3qgg01qojcmbdp47dkaom9x45">
+        <columns>email</columns>
+        <underlying-index>UK_3qgg01qojcmbdp47dkaom9x45</underlying-index>
       </key>
-      <key id="20" parent="8" name="UK_nk4c9qcgv8el6abqd6etg77yy">
-        <columns>name</columns>
-        <underlying-index>UK_nk4c9qcgv8el6abqd6etg77yy</underlying-index>
-      </key>
-      <column id="21" parent="9" name="id">
+      <column id="20" parent="9" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)|0</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="22" parent="9" name="createDate">
+      <column id="21" parent="9" name="code">
         <mandatory>1</mandatory>
-        <data-type>datetime|0</data-type>
+        <data-type>varchar(5)|0</data-type>
       </column>
-      <column id="23" parent="9" name="email">
-        <mandatory>1</mandatory>
+      <column id="22" parent="9" name="image">
         <data-type>varchar(64)|0</data-type>
       </column>
-      <column id="24" parent="9" name="firstName">
-        <mandatory>1</mandatory>
-        <data-type>varchar(64)|0</data-type>
-      </column>
-      <column id="25" parent="9" name="isEnabled">
+      <column id="23" parent="9" name="isEnabled">
         <data-type>bit(1)|0</data-type>
       </column>
-      <column id="26" parent="9" name="lastName">
-        <data-type>varchar(64)|0</data-type>
+      <column id="24" parent="9" name="name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(20)|0</data-type>
       </column>
-      <column id="27" parent="9" name="modifyDate">
+      <index id="25" parent="9" name="UK_mf5wn2sc6j9c6y6jbj9wqdjh1">
+        <columns>code</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="26" parent="9" name="UK_nk4c9qcgv8el6abqd6etg77yy">
+        <columns>name</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="27" parent="9" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <key id="28" parent="9" name="UK_mf5wn2sc6j9c6y6jbj9wqdjh1">
+        <columns>code</columns>
+        <underlying-index>UK_mf5wn2sc6j9c6y6jbj9wqdjh1</underlying-index>
+      </key>
+      <key id="29" parent="9" name="UK_nk4c9qcgv8el6abqd6etg77yy">
+        <columns>name</columns>
+        <underlying-index>UK_nk4c9qcgv8el6abqd6etg77yy</underlying-index>
+      </key>
+      <column id="30" parent="10" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)|0</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="31" parent="10" name="number">
+        <data-type>varchar(255)|0</data-type>
+      </column>
+      <column id="32" parent="10" name="customer">
+        <data-type>int(11)|0</data-type>
+      </column>
+      <index id="33" parent="10" name="FK10jl61bigdeh779uu4uhgi4lb">
+        <columns>customer</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="34" parent="10" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="35" parent="10" name="FK10jl61bigdeh779uu4uhgi4lb">
+        <columns>customer</columns>
+        <ref-key>~.customer.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="36" parent="11" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)|0</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="37" parent="11" name="createDate">
+        <mandatory>1</mandatory>
         <data-type>datetime|0</data-type>
       </column>
-      <column id="28" parent="9" name="password">
+      <column id="38" parent="11" name="email">
+        <mandatory>1</mandatory>
+        <data-type>varchar(64)|0</data-type>
+      </column>
+      <column id="39" parent="11" name="firstName">
+        <mandatory>1</mandatory>
+        <data-type>varchar(64)|0</data-type>
+      </column>
+      <column id="40" parent="11" name="isEnabled">
+        <data-type>bit(1)|0</data-type>
+      </column>
+      <column id="41" parent="11" name="lastName">
+        <data-type>varchar(64)|0</data-type>
+      </column>
+      <column id="42" parent="11" name="modifyDate">
+        <data-type>datetime|0</data-type>
+      </column>
+      <column id="43" parent="11" name="password">
         <mandatory>1</mandatory>
         <data-type>varchar(128)|0</data-type>
       </column>
-      <column id="29" parent="9" name="userRole">
+      <column id="44" parent="11" name="userRole">
         <mandatory>1</mandatory>
         <data-type>int(11)|0</data-type>
       </column>
-      <index id="30" parent="9" name="FK4jpd64f2fc7ft5sr54vn0gc82">
+      <index id="45" parent="11" name="FK4jpd64f2fc7ft5sr54vn0gc82">
         <columns>userRole</columns>
         <desc-columns></desc-columns>
       </index>
-      <index id="31" parent="9" name="UK_e6gkqunxajvyxl5uctpl2vl2p">
+      <index id="46" parent="11" name="UK_e6gkqunxajvyxl5uctpl2vl2p">
         <columns>email</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <key id="32" parent="9" name="PRIMARY">
+      <key id="47" parent="11" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <key id="33" parent="9" name="UK_e6gkqunxajvyxl5uctpl2vl2p">
+      <key id="48" parent="11" name="UK_e6gkqunxajvyxl5uctpl2vl2p">
         <columns>email</columns>
         <underlying-index>UK_e6gkqunxajvyxl5uctpl2vl2p</underlying-index>
       </key>
-      <foreign-key id="34" parent="9" name="FK4jpd64f2fc7ft5sr54vn0gc82">
+      <foreign-key id="49" parent="11" name="FK4jpd64f2fc7ft5sr54vn0gc82">
         <columns>userRole</columns>
         <ref-key>~.userrole.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="35" parent="10" name="id">
+      <column id="50" parent="12" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)|0</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="36" parent="10" name="name">
+      <column id="51" parent="12" name="name">
         <mandatory>1</mandatory>
         <data-type>varchar(25)|0</data-type>
       </column>
-      <column id="37" parent="10" name="permission">
+      <column id="52" parent="12" name="permission">
         <mandatory>1</mandatory>
         <data-type>varchar(25)|0</data-type>
       </column>
-      <index id="38" parent="10" name="UK_tp99f11id2fupsot9ouugqysw">
+      <index id="53" parent="12" name="UK_tp99f11id2fupsot9ouugqysw">
         <columns>name</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <key id="39" parent="10" name="PRIMARY">
+      <key id="54" parent="12" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <key id="40" parent="10" name="UK_tp99f11id2fupsot9ouugqysw">
+      <key id="55" parent="12" name="UK_tp99f11id2fupsot9ouugqysw">
         <columns>name</columns>
         <underlying-index>UK_tp99f11id2fupsot9ouugqysw</underlying-index>
       </key>
