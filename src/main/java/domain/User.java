@@ -4,33 +4,55 @@ package domain;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 /**
  * Created by Mars on 11.08.2016.
  */
 @Entity
+@Table(name = "User")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
+
     @OneToOne
+    @JoinColumn(name = "userRole")
+    @NotNull
     private UserRole userRole;
-    @Column(unique = true)
+
+    @Column(name = "email", unique = true, length = 64)
+    @NotNull
+    @Pattern(regexp = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$")
     private String email;
-    @Column
+
+    @Column(name = "firstName", length = 64)
+    @NotNull
+    @Size(min = 2, max = 64)
     private String firstName;
-    @Column
+
+    @Column(name = "lastName", length = 64)
+    @Size(min = 2, max = 64)
     private String lastName;
-    @Column
+
+    @Column(name = "isEnabled")
     private Boolean isEnabled;
-    @Column
+
+    @Column(name = "password", length = 128)
+    @NotNull
     private String password;
-    @Column
-    @Type(type="timestamp")
+
+    @Column(name = "createDate")
+    @Temporal(TemporalType.TIMESTAMP)
+    @NotNull
     private Date createDate;
-    @Column
+
+    @Column(name = "modifyDate")
     private Date modifyDate;
 
     public User() {
@@ -115,18 +137,18 @@ public class User {
 
         User user = (User) o;
 
-        if (userRole != null ? !userRole.equals(user.userRole) : user.userRole != null) return false;
+        if (!userRole.equals(user.userRole)) return false;
         if (!email.equals(user.email)) return false;
-        if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) return false;
+        if (!firstName.equals(user.firstName)) return false;
         return lastName != null ? lastName.equals(user.lastName) : user.lastName == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = userRole != null ? userRole.hashCode() : 0;
+        int result = userRole.hashCode();
         result = 31 * result + email.hashCode();
-        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
+        result = 31 * result + firstName.hashCode();
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         return result;
     }

@@ -1,21 +1,29 @@
 package domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * Created by Mars on 11.08.2016.
  */
 @Entity
+@Table(name = "UserRole")
 public class UserRole {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
 
-    @Column(unique = true)
+    @Column(name = "name", unique = true, length = 25)
+    @NotNull
+    @Size(min = 2, max = 25)
     private String name;
 
-    @Column
+    @Column(name = "permission", length = 25)
+    @NotNull
+    @Size(min = 2, max = 25)
     private String permission;
 
     public UserRole() {

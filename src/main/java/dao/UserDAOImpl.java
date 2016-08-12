@@ -1,8 +1,8 @@
 package dao;
 
+import dao.interfaces.UserDAO;
 import domain.User;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
