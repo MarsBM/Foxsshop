@@ -1,17 +1,17 @@
-package dao.interfaces;
+package service.interfaces;
 
 import domain.ready.User;
 
 import java.util.List;
 
 /**
- * Created by Mars on 11.08.2016.
+ * Created by Mars on 15.08.2016.
  */
-public interface UserDAO {
+public interface UserService {
 
     List<User> getUsersList();
 
-    User getUser(String login);
+    User getUser(Long id);
 
     void deleteUser(Long id);
 

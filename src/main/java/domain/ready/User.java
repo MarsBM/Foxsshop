@@ -1,7 +1,5 @@
-package domain;
+package domain.ready;
 
-
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -19,11 +17,10 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "userRole")
-    @NotNull
     private UserRole userRole;
 
     @Column(name = "email", unique = true, length = 64)
@@ -58,11 +55,11 @@ public class User {
     public User() {
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -106,6 +103,14 @@ public class User {
         isEnabled = enabled;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public Date getCreateDate() {
         return createDate;
     }
@@ -122,14 +127,6 @@ public class User {
         this.modifyDate = modifyDate;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -140,7 +137,8 @@ public class User {
         if (!userRole.equals(user.userRole)) return false;
         if (!email.equals(user.email)) return false;
         if (!firstName.equals(user.firstName)) return false;
-        return lastName != null ? lastName.equals(user.lastName) : user.lastName == null;
+        if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
+        return password.equals(user.password);
 
     }
 
@@ -150,6 +148,7 @@ public class User {
         result = 31 * result + email.hashCode();
         result = 31 * result + firstName.hashCode();
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + password.hashCode();
         return result;
     }
 }

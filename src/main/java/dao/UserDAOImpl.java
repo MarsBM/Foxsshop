@@ -1,7 +1,7 @@
 package dao;
 
 import dao.interfaces.UserDAO;
-import domain.User;
+import domain.ready.User;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -12,14 +12,14 @@ import java.util.List;
  * Created by Mars on 11.08.2016.
  */
 @Repository
-public class UserDAOImpl implements UserDAO {
+public class UserDAOImpl /*implements UserDAO*/ {
 
-    @Autowired
+    /*@Autowired
     private SessionFactory sessionFactory;
 
     @Override
-    public User getUser(String name) {
-        return sessionFactory.getCurrentSession().get(User.class, name);
+    public User getUser(Long id) {
+        return sessionFactory.getCurrentSession().get(User.class, id);
     }
 
     @Override
@@ -28,8 +28,8 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void removeUser(String name) {
-        User user = sessionFactory.getCurrentSession().load(User.class, name);
+    public void deleteUser(Long id) {
+        User user = sessionFactory.getCurrentSession().load(User.class, id);
         if (null != user) {
             sessionFactory.getCurrentSession().delete(user);
         }
@@ -37,12 +37,12 @@ public class UserDAOImpl implements UserDAO {
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<User> getUserList() {
+    public List<User> getUsersList() {
         return sessionFactory.getCurrentSession().createQuery("from User").list();
     }
 
     @Override
-    public void addContact(User user) {
+    public void addUser(User user) {
         sessionFactory.getCurrentSession().save(user);
-    }
+    }*/
 }

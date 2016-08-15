@@ -1,8 +1,9 @@
-package domain;
+package domain.ready;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 /**
  * Created by Mars on 11.08.2016.
@@ -14,7 +15,7 @@ public class UserRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
 
     @Column(name = "name", unique = true, length = 25)
     @NotNull
@@ -26,14 +27,17 @@ public class UserRole {
     @Size(min = 2, max = 25)
     private String permission;
 
+    @OneToMany(mappedBy = "userRole")
+    private Set<User> users;
+
     public UserRole() {
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -51,6 +55,14 @@ public class UserRole {
 
     public void setPermission(String permission) {
         this.permission = permission;
+    }
+
+    public Set<User> getUser() {
+        return users;
+    }
+
+    public void setUser(Set<User> users) {
+        this.users = users;
     }
 
     @Override

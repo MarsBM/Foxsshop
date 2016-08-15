@@ -1,11 +1,14 @@
 package domain;
 
+import domain.ready.Telephone;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Mars on 12.08.2016.
@@ -17,7 +20,7 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
 
     @Column(name = "firstName", length = 25)
     @NotNull
@@ -33,63 +36,39 @@ public class Customer {
     @Pattern(regexp = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$")
     private String email;
 
-    @OneToMany(mappedBy = "customer")
-    private List<Telephone> telephones;
+    @ManyToMany
+    @JoinTable(name = "customer_telephone",
+            joinColumns = {@JoinColumn(name = "telephones")},
+            inverseJoinColumns = {@JoinColumn(name = "customers")})
+    private Set<Telephone> telephones;
 
     @Column(name = "password")
     @NotNull
     private String password;
 
-    private String cart;
-    private String wishlist;
+    @ManyToMany
+    @JoinTable(name="cart",
+            joinColumns={@JoinColumn(name="customer")},
+            inverseJoinColumns={@JoinColumn(name="product")})
+    private Set<Product> cart;
+
+    @JoinTable(name="wishlist",
+            joinColumns={@JoinColumn(name="customer")},
+            inverseJoinColumns={@JoinColumn(name="product")})
+    private Set<Product> wishlist;
+
+    @Column(name = "newsletter")
+    @NotNull
     private Boolean newsletter;
-    private String address;
+
+    @OneToMany(mappedBy = "customer")
+    private Set<Address> addresses;
+
+
     private CustomerGroup customerGroup;
     private String ip;
     private Boolean isEnabled;
     private Date createDate;
     private Date modifyDate;
 
-    public Customer() {
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public List<Telephone> getTelephones() {
-        return telephones;
-    }
-
-    public void setTelephones(List<Telephone> telephones) {
-        this.telephones = telephones;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }

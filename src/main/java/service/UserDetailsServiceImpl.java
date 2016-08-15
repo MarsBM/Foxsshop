@@ -1,7 +1,7 @@
 package service;
 
 import dao.interfaces.UserDAO;
-import domain.User;
+import domain.ready.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
