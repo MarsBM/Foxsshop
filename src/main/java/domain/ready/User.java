@@ -1,82 +1,73 @@
 package domain.ready;
 
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by Mars on 11.08.2016.
  */
 @Entity
-@Table(name = "User")
+@Table(name = "Users")
 public class User {
 
+    @Column(name = "user_role")
+    private String userRole;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "login", unique = true)
+    @NotBlank
+    private String login;
 
-    @ManyToOne
-    @JoinColumn(name = "userRole")
-    private UserRole userRole;
-
-    @Column(name = "email", unique = true, length = 64)
-    @NotNull
-    @Pattern(regexp = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$")
-    private String email;
-
-    @Column(name = "firstName", length = 64)
-    @NotNull
-    @Size(min = 2, max = 64)
+    @Column(name = "first_name", length = 25)
+    @Size(max = 25)
     private String firstName;
 
-    @Column(name = "lastName", length = 64)
-    @Size(min = 2, max = 64)
+    @Column(name = "last_name", length = 25)
+    @Size(max = 25)
     private String lastName;
 
-    @Column(name = "isEnabled")
+    @Column(name = "email", length = 25)
+    @Size(max = 25)
+    private String email;
+
+    @Column(name = "status")
+    @NotNull
     private Boolean isEnabled;
 
-    @Column(name = "password", length = 128)
-    @NotNull
+    @Column(name = "password")
+    @NotEmpty
     private String password;
 
-    @Column(name = "createDate")
-    @Temporal(TemporalType.TIMESTAMP)
-    @NotNull
+    @Column(name = "create_date")
+    @NotEmpty
     private Date createDate;
-
-    @Column(name = "modifyDate")
-    private Date modifyDate;
 
     public User() {
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public UserRole getUserRole() {
+    public String getUserRole() {
         return userRole;
     }
 
-    public void setUserRole(UserRole userRole) {
+    public void setUserRole(String userRole) {
         this.userRole = userRole;
     }
 
-    public String getEmail() {
-        return email;
+    public String getLogin() {
+        return login;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getFirstName() {
@@ -93,6 +84,14 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Boolean getEnabled() {
@@ -119,14 +118,6 @@ public class User {
         this.createDate = createDate;
     }
 
-    public Date getModifyDate() {
-        return modifyDate;
-    }
-
-    public void setModifyDate(Date modifyDate) {
-        this.modifyDate = modifyDate;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -134,21 +125,23 @@ public class User {
 
         User user = (User) o;
 
-        if (!userRole.equals(user.userRole)) return false;
-        if (!email.equals(user.email)) return false;
-        if (!firstName.equals(user.firstName)) return false;
+        if (userRole != null ? !userRole.equals(user.userRole) : user.userRole != null) return false;
+        if (login != null ? !login.equals(user.login) : user.login != null) return false;
+        if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) return false;
         if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
-        return password.equals(user.password);
+        if (email != null ? !email.equals(user.email) : user.email != null) return false;
+        return password != null ? password.equals(user.password) : user.password == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = userRole.hashCode();
-        result = 31 * result + email.hashCode();
-        result = 31 * result + firstName.hashCode();
+        int result = userRole != null ? userRole.hashCode() : 0;
+        result = 31 * result + (login != null ? login.hashCode() : 0);
+        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + password.hashCode();
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
         return result;
     }
 }

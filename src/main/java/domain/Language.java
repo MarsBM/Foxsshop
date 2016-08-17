@@ -1,14 +1,17 @@
 package domain;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 /**
  * Created by Mars on 11.08.2016.
  */
 @Entity
-@Table(name = "Language")
+@Table(name = "Languages")
 public class Language {
 
     @Id
@@ -17,19 +20,19 @@ public class Language {
     private Integer id;
 
     @Column(name = "name",unique = true, length = 20)
-    @NotNull
+    @NotBlank
     @Size(min = 2, max = 20)
     private String name;
 
     @Column(name = "code",unique = true, length = 5)
-    @NotNull
+    @NotBlank
     @Size(min = 2, max = 5)
     private String code;
 
-    @Column(name = "image", length = 64)
+    @Column(name = "image")
     private String image;
 
-    @Column(name = "isEnabled")
+    @Column(name = "status")
     private Boolean isEnabled;
 
     public Language() {

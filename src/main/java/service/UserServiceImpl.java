@@ -13,9 +13,9 @@ import java.util.List;
  * Created by Mars on 15.08.2016.
  */
 @Service
-public class UserServiceImpl /*implements UserService*/ {
+public class UserServiceImpl implements UserService {
 
-    /*@Autowired
+    @Autowired
     private UserDAO userDAO;
 
     @Override
@@ -26,8 +26,8 @@ public class UserServiceImpl /*implements UserService*/ {
 
     @Override
     @Transactional
-    public User getUser(String id) {
-        return userDAO.getUser(id);
+    public User getUser(String login) {
+        return userDAO.getUser(login);
     }
 
     @Override
@@ -46,5 +46,5 @@ public class UserServiceImpl /*implements UserService*/ {
     @Transactional
     public void addUser(User user) {
         userDAO.addUser(user);
-    }*/
+    }
 }

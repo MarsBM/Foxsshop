@@ -1,48 +1,32 @@
 package domain;
 
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
+import javax.persistence.Id;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
  * Created by Mars on 12.08.2016.
  */
+@Entity
+@Table(name = "Product")
 public class Product {
 
-    private Integer id;
-    private String model;
-    private Integer quantity;
-    private StockStatus stockStatus;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
 
-    private String image;
+       public Product() {
+    }
 
-    private Manufacturer manufacturer;
-    private Boolean shipping;
-    private Double price;
-    private Date dateAvailable;
-    private Double weight;
-    private Double height;
-    private Double width;
-    private Double length;
-    private Boolean subtract;
-    private Integer minimum;
-    private String status;
-    private Boolean isEnabled;
-    private Integer viewed;
-    private Date createDate;
-    private Date modifyDate;
+    public Long getId() {
+        return id;
+    }
 
-    private Review review;
-    private Category category;
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    private Option option;
-    private Attribute attribute;
-
-    private Description description;
-
-    @ManyToMany(mappedBy = "cart")
-    private Set<Customer> customersCart;
-
-    @ManyToMany(mappedBy = "wishlist")
-    private Set<Customer> customersWishlist;
 }

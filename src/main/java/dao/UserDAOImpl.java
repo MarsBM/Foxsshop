@@ -12,14 +12,14 @@ import java.util.List;
  * Created by Mars on 11.08.2016.
  */
 @Repository
-public class UserDAOImpl /*implements UserDAO*/ {
+public class UserDAOImpl implements UserDAO {
 
-    /*@Autowired
+    @Autowired
     private SessionFactory sessionFactory;
 
     @Override
-    public User getUser(Long id) {
-        return sessionFactory.getCurrentSession().get(User.class, id);
+    public User getUser(String login) {
+        return sessionFactory.getCurrentSession().get(User.class, login);
     }
 
     @Override
@@ -44,5 +44,5 @@ public class UserDAOImpl /*implements UserDAO*/ {
     @Override
     public void addUser(User user) {
         sessionFactory.getCurrentSession().save(user);
-    }*/
+    }
 }

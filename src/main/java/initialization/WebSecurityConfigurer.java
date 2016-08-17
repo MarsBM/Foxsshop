@@ -37,12 +37,12 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
 
-        http.authorizeRequests()
-                .antMatchers("/delete/*").hasRole("ADMIN")
+        /*http.authorizeRequests()
+                .antMatchers("/delete*//*").hasRole("ADMIN")
                 .antMatchers("/add").hasAnyRole(new String[]{"USER", "ADMIN"})
                 .antMatchers("/foradmin").hasRole("ADMIN")
                 .and()
-                .anonymous().authorities("ANONYMOUS");
+                .anonymous().authorities("ANONYMOUS");*/
 
         // включаем защиту от CSRF атак
         http.csrf()
@@ -64,11 +64,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .usernameParameter("username")
                 .passwordParameter("password")
                 // даем доступ к форме логина всем
-                .permitAll()
-                .and()
-                .rememberMe().rememberMeParameter("remember-me")
-                .tokenRepository(persistentTokenRepository())
-                .tokenValiditySeconds(60*60);
+                .permitAll();
 
         http.logout()
                 // разрешаем делать логаут всем
@@ -76,7 +72,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 // указываем URL логаута
                 .logoutUrl("/logout")
                 // указываем URL при удачном логауте
-                .logoutSuccessUrl("/index")
+                .logoutSuccessUrl("/")
                 // делаем не валидной текущую сессию
                 .invalidateHttpSession(true);
 
