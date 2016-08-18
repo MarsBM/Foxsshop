@@ -1,7 +1,6 @@
 package service;
 
 import dao.interfaces.CrudDAO;
-import domain.user.User;
 import domain.user.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,35 +10,35 @@ import service.interfaces.CrudService;
 import java.util.List;
 
 /**
- * Created by Mars on 15.08.2016.
+ * Created by Mars on 18.08.2016.
  */
-@Service("userService")
-public class UserServiceImpl implements CrudService<User> {
+@Service(value = "roleService")
+public class UserRoleServiceImpl implements CrudService<UserRole> {
 
     @Autowired
-    private CrudDAO<User> crudDAO;
+    private CrudDAO<UserRole> crudDAO;
 
     @Override
     @Transactional
-    public List<User> list() {
+    public List<UserRole> list() {
         return crudDAO.list();
     }
 
     @Override
     @Transactional
-    public User get(Object login) {
-        return crudDAO.get(login);
+    public UserRole get(Object id) {
+        return crudDAO.get(id);
     }
 
     @Override
     @Transactional
-    public void delete(Object login) {
-        crudDAO.delete(login);
+    public void delete(Object id) {
+        crudDAO.delete(id);
     }
 
     @Override
     @Transactional
-    public void saveOrUpdate(User user) {
-        crudDAO.saveOrUpdate(user);
+    public void saveOrUpdate(UserRole userRole) {
+        crudDAO.saveOrUpdate(userRole);
     }
 }

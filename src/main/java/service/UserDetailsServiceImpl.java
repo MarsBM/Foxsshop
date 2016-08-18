@@ -1,7 +1,7 @@
 package service;
 
-import dao.interfaces.UserDAO;
-import domain.ready.User;
+import dao.interfaces.CrudDAO;
+import domain.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,13 +21,13 @@ import java.util.Set;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private UserDAO userDAO;
+    private CrudDAO<User> crudDAO;
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
 
-        User user = userDAO.getUser(login);
+        User user = crudDAO.get(login);
 
         if (null == user) {
             throw new UsernameNotFoundException("USER NOT FOUND!");
@@ -35,7 +35,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         Set<GrantedAuthority> roles = new HashSet<>();
 
-        roles.add(new SimpleGrantedAuthority(user.getUserRole()));
+        roles.add(new SimpleGrantedAuthority(user.getUserRole().getPermission()));
 
         UserDetails userDetails = new org.springframework.security.core.userdetails
                 .User(user.getLogin(), user.getPassword(), user.getEnabled(), true, true, true, roles);

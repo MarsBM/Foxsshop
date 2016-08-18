@@ -38,7 +38,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
 
         /*http.authorizeRequests()
-                .antMatchers("/delete*//*").hasRole("ADMIN")
+                .antMatchers("/delete").hasRole("ADMIN")
                 .antMatchers("/add").hasAnyRole(new String[]{"USER", "ADMIN"})
                 .antMatchers("/foradmin").hasRole("ADMIN")
                 .and()
@@ -51,7 +51,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 // по которым будет определятся доступ к ресурсам и остальным данным
                 .authorizeRequests()
                 //.antMatchers("/resources/**", "/**").permitAll()
-                .anyRequest().permitAll();
+                .anyRequest().hasRole("ADMIN");
 
         http.formLogin()
                 // указываем страницу с формой логина
@@ -72,10 +72,9 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 // указываем URL логаута
                 .logoutUrl("/logout")
                 // указываем URL при удачном логауте
-                .logoutSuccessUrl("/")
+                .logoutSuccessUrl("/login")
                 // делаем не валидной текущую сессию
                 .invalidateHttpSession(true);
-
     }
 
     @Bean

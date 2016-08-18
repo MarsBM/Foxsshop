@@ -1,7 +1,6 @@
-package domain.ready;
+package domain.user;
 
 
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -9,8 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * Created by Mars on 11.08.2016.
@@ -19,12 +17,14 @@ import java.util.Date;
 @Table(name = "Users")
 public class User {
 
-    @Column(name = "user_role")
-    private String userRole;
+    @ManyToOne
+    @JoinColumn(name = "user_role")
+    @NotBlank
+    private UserRole userRole;
 
     @Id
     @Column(name = "login", unique = true)
-    @NotBlank
+    @Pattern(regexp = "\\w{2,}")
     private String login;
 
     @Column(name = "first_name", length = 25)
@@ -47,18 +47,17 @@ public class User {
     @NotEmpty
     private String password;
 
-    @Column(name = "create_date")
-    @NotEmpty
+    @Column(name="create_date")
     private Date createDate;
 
     public User() {
     }
 
-    public String getUserRole() {
+    public UserRole getUserRole() {
         return userRole;
     }
 
-    public void setUserRole(String userRole) {
+    public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
     }
 

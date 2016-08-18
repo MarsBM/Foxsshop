@@ -7,15 +7,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title><spring:message code="label.title" /></title>
+    <title><spring:message code="label.title.home" /></title>
 </head>
-<body>
-    <h1>Index page</h1>
+<header>
     <sec:authorize access="isAuthenticated()">
         <sec:authentication property="principal.username"/>
         <a href="/logout" ><spring:message code="label.logout"/></a>
     </sec:authorize>
-    ${name}
+</header>
+<body>
+    <p>
+        <a href="/users/list">Users</a>
+    </p>
 
     <%--<form:form method="post" action="add" commandName="user">
         <table>

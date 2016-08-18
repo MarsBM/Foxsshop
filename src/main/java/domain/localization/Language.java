@@ -1,11 +1,9 @@
-package domain;
+package domain.localization;
 
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 /**
  * Created by Mars on 11.08.2016.

@@ -1,6 +1,6 @@
 package dao.interfaces;
 
-import domain.Language;
+import domain.localization.Language;
 
 import java.util.List;
 

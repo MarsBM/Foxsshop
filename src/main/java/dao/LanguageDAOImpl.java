@@ -1,7 +1,7 @@
 package dao;
 
 import dao.interfaces.LanguageDAO;
-import domain.Language;
+import domain.localization.Language;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 

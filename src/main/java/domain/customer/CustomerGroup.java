@@ -1,11 +1,8 @@
-package domain;
+package domain.customer;
 
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -24,7 +21,7 @@ public class CustomerGroup {
     @NotBlank
     private String name;
 
-    @OneToMany(mappedBy = "customer_group")
+    @OneToMany(mappedBy = "customerGroup")
     private Set<Customer> customers;
 
     public CustomerGroup() {
