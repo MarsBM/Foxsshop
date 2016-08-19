@@ -19,37 +19,8 @@
     <p>
         <a href="/users/list">Users</a>
     </p>
-
-    <%--<form:form method="post" action="add" commandName="user">
-        <table>
-            <tr>
-                <td><form:label path="firstName">
-                        <spring:message code="user.firstName" />
-                    </form:label>
-                </td>
-                <td>
-                    <form:input path="firstName" title="firstName"/>
-                </td>
-            </tr>
-            <tr>
-                <td><form:label path="email">
-                    <spring:message code="user.email" />
-                </form:label>
-                </td>
-                <td>
-                    <form:input path="email" title="email"/>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <input class="btn" type="submit" value="<spring:message code="user.submit"/>" />
-                </td>
-                <td>
-                    <a href="/">Cancel</a>
-                </td>
-            </tr>
-        </table>
-    </form:form>--%>
+    <p>
+        <a href="/roles/list">UserRoles</a>
+    </p>
 </body>
 </html>

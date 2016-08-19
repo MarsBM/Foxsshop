@@ -76,15 +76,16 @@
                 </form:label>
             </td>
             <td>
-               <%-- <form:select path="userRole" items="${roles}" />--%>
-                <form:select path="userRole">
+                <form:select path="userRole.id">
                     <c:forEach items="${roles}" var="role">
                         <form:option value="${role.id}" label="${role.name}"/>
                     </c:forEach>
                 </form:select>
             </td>
             <span>
-                <form:errors path="userRole" ><spring:message code="err.userRole"/></form:errors>
+                <form:errors path="userRole" >
+                    <spring:message code="err.userRole"/>
+                </form:errors>
             </span>
         </tr>
 

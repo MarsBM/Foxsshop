@@ -19,7 +19,6 @@ public class User {
 
     @ManyToOne
     @JoinColumn(name = "user_role")
-    @NotBlank
     private UserRole userRole;
 
     @Id

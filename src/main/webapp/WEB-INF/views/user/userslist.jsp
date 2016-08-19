@@ -20,8 +20,7 @@
 <p>
     <a href="/controlpanel">Home</a>
 </p>
-${test}
-<a href="/users/add-user">Add user</a>
+<a href="/users/new">Add user</a>
 <table>
     <tr>
         <th>

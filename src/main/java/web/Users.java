@@ -36,7 +36,15 @@ public class Users {
     @RequestMapping(value = "/list")
     public String list(Model model) {
         model.addAttribute("users", userService.list());
-        return "userslist";
+        return "user/userslist";
+    }
+
+    @RequestMapping(value = "/new")
+    public String addUser(Model model) {
+        model.addAttribute("user", new User());
+        model.addAttribute("roles", roleService.list());
+        model.addAttribute("currentDate", new Date(new java.util.Date().getTime()));
+        return "user/useradd";
     }
 
     @RequestMapping(value = "/delete/{login}")
@@ -50,7 +58,7 @@ public class Users {
         User user = userService.get(login);
         model.addAttribute("user", user);
         model.addAttribute("roles", roleService.list());
-        return "usersedit";
+        return "user/useredit";
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
@@ -71,7 +79,7 @@ public class Users {
             model.addAttribute("user", user);
             model.addAttribute("roles", roleService.list());
 
-            return "useradd";
+            return "user/useradd";
 
         } else {
 
@@ -88,12 +96,5 @@ public class Users {
             }
             return "redirect:/users/list";
         }
-    }
-
-    @RequestMapping(value = "/add-user")
-    public String addUser(Model model) {
-        model.addAttribute("user", new User());
-        model.addAttribute("roles", roleService.list());
-        return "useradd";
     }
 }

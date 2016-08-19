@@ -109,11 +109,10 @@
                 </form:label>
             </td>
             <td>
-                <form:select path="userRole">
-                    <form:option value="userRole" label="userRole" />
-                    <%--<c:forEach items="${roles}" var="role">
-                        <form:option value="${role.id}" label="${role.name}" />
-                    </c:forEach>--%>
+                <form:select path="userRole.id">
+                    <c:forEach items="${roles}" var="role">
+                        <form:option value="${role.id}" label="${role.name}"/>
+                    </c:forEach>
                 </form:select>
             </td>
         </tr>
