@@ -37,7 +37,12 @@ public class UserRoleDAOImpl implements CrudDAO<UserRole> {
     }
 
     @Override
-    public void saveOrUpdate(UserRole userRole) {
-        sessionFactory.getCurrentSession().saveOrUpdate(userRole);
+    public void save(UserRole userRole) {
+        sessionFactory.getCurrentSession().save(userRole);
+    }
+
+    @Override
+    public void update(UserRole userRole) {
+        sessionFactory.getCurrentSession().update(userRole);
     }
 }

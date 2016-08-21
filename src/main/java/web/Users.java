@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.support.SessionStatus;
 import service.interfaces.CrudService;
 
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import java.sql.Date;
 
@@ -44,6 +45,7 @@ public class Users {
         model.addAttribute("user", new User());
         model.addAttribute("roles", roleService.list());
         model.addAttribute("currentDate", new Date(new java.util.Date().getTime()));
+        /*model.addAttribute("login_is_used", "empty");*/
         return "user/useradd";
     }
 
@@ -67,33 +69,33 @@ public class Users {
         if (user.getPassword().isEmpty()){
             user.setPassword(oldPass);
         } else user.setPassword(md5PasswordEncoder.encodePassword(user.getPassword(), null));
-        userService.saveOrUpdate(user);
+        userService.update(user);
         return "redirect:/users/list";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String add(@ModelAttribute @Valid User user, BindingResult result, SessionStatus status, Model model) {
 
-        if (result.hasErrors()) {
+        User u = userService.get(user.getLogin());
+        String login = null != u ? u.getLogin() : "";
+        boolean equals = login.equals(user.getLogin());
 
+        if (equals || result.hasErrors()) {
             model.addAttribute("user", user);
             model.addAttribute("roles", roleService.list());
-
+            if (equals) model.addAttribute("login_is_used", "err.login.is.used");
             return "user/useradd";
-
         } else {
 
             status.setComplete();
 
-            if (null != user){
+            String password = md5PasswordEncoder.encodePassword(user.getPassword(), null);
+            user.setPassword(password);
 
-                String password = md5PasswordEncoder.encodePassword(user.getPassword(), null);
-                user.setPassword(password);
+            user.setCreateDate(new Date(new java.util.Date().getTime()));
 
-                user.setCreateDate(new Date(new java.util.Date().getTime()));
+            userService.save(user);
 
-                userService.saveOrUpdate(user);
-            }
             return "redirect:/users/list";
         }
     }

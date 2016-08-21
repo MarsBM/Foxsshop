@@ -22,7 +22,7 @@ public class User {
     private UserRole userRole;
 
     @Id
-    @Column(name = "login", unique = true)
+    @Column(name = "login")
     @Pattern(regexp = "\\w{2,}")
     private String login;
 

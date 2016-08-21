@@ -3,6 +3,7 @@ package dao;
 import dao.interfaces.CrudDAO;
 import domain.user.User;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -37,7 +38,12 @@ public class UserDAOImpl implements CrudDAO<User> {
     }
 
     @Override
-    public void saveOrUpdate(User user) {
-        sessionFactory.getCurrentSession().saveOrUpdate(user);
+    public void save(User user) {
+        sessionFactory.getCurrentSession().save(user);
+    }
+
+    @Override
+    public void update(User user) {
+        sessionFactory.getCurrentSession().update(user);
     }
 }

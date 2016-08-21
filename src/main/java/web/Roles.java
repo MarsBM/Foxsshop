@@ -51,7 +51,7 @@ public class Roles {
             status.setComplete();
 
             if (null != userRole){
-                roleService.saveOrUpdate(userRole);
+                roleService.save(userRole);
             }
             return "redirect:/roles/list";
         }
@@ -72,7 +72,7 @@ public class Roles {
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String update(@ModelAttribute UserRole userRole) {
-        roleService.saveOrUpdate(userRole);
+        roleService.update(userRole);
         return "redirect:/roles/list";
     }
 }

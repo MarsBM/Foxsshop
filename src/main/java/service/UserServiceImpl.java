@@ -39,7 +39,13 @@ public class UserServiceImpl implements CrudService<User> {
 
     @Override
     @Transactional
-    public void saveOrUpdate(User user) {
-        crudDAO.saveOrUpdate(user);
+    public void save(User user) {
+        crudDAO.save(user);
+    }
+
+    @Override
+    @Transactional
+    public void update(User user) {
+        crudDAO.update(user);
     }
 }

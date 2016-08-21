@@ -30,7 +30,7 @@
                 </form:label>
             </td>
             <td>
-                <form:input path="name"/>
+                <form:input path="name" required="true"/>
             </td>
         </tr>
 
@@ -41,7 +41,7 @@
                 </form:label>
             </td>
             <td>
-                <form:input path="permission" title="permission"/>
+                <form:input path="permission" required="true"/>
             </td>
         </tr>
 

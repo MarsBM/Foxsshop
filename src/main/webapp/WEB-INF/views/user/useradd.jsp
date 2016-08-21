@@ -29,10 +29,17 @@
                 </form:label>
             </td>
             <td>
-                <form:input path="login" title="login"/>
+                <form:input path="login" required="true"/>
             </td>
             <span>
-                <form:errors path="login" ><spring:message code="err.login"/></form:errors>
+                <c:choose>
+                    <c:when test="${!empty login_is_used}">
+                        <spring:message code="${login_is_used}"/>
+                    </c:when>
+                    <c:otherwise>
+                        <form:errors path="login" ><spring:message code="err.login"/></form:errors>
+                    </c:otherwise>
+                </c:choose>
             </span>
         </tr>
 
@@ -43,8 +50,11 @@
                 </form:label>
             </td>
             <td>
-                <form:input path="firstName" title="firstName"/>
+                <form:input path="firstName"/>
             </td>
+            <span>
+                <form:errors path="firstName" ><spring:message code="err.firstName"/></form:errors>
+            </span>
         </tr>
 
         <tr>
@@ -54,8 +64,11 @@
                 </form:label>
             </td>
             <td>
-                <form:input path="lastName" title="lastName"/>
+                <form:input path="lastName"/>
             </td>
+            <span>
+                <form:errors path="lastName" ><spring:message code="err.lastName"/></form:errors>
+            </span>
         </tr>
 
         <tr>
@@ -65,8 +78,11 @@
                 </form:label>
             </td>
             <td>
-                <form:input path="email" title="email"/>
+                <form:input path="email"/>
             </td>
+            <span>
+                <form:errors path="email" ><spring:message code="err.email"/></form:errors>
+            </span>
         </tr>
 
         <tr>
@@ -96,8 +112,11 @@
                 </form:label>
             </td>
             <td>
-                <form:input path="password" title="password"/>
+                <form:input path="password" required="true"/>
             </td>
+            <span>
+                <form:errors path="password" ><spring:message code="err.password"/></form:errors>
+            </span>
         </tr>
 
         <tr>

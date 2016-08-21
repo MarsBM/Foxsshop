@@ -1,7 +1,7 @@
 package service;
 
 import dao.interfaces.CrudDAO;
-import domain.user.UserRole;
+import domain.localization.Language;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,41 +10,42 @@ import service.interfaces.CrudService;
 import java.util.List;
 
 /**
- * Created by Mars on 18.08.2016.
+ * Created by Mars on 19.08.2016.
  */
-@Service(value = "roleService")
-public class UserRoleServiceImpl implements CrudService<UserRole> {
+@Service(value = "languageService")
+public class LanguageServiceImpl implements CrudService<Language> {
 
     @Autowired
-    private CrudDAO<UserRole> crudDAO;
+    CrudDAO<Language> crudDAO;
+
 
     @Override
     @Transactional
-    public List<UserRole> list() {
+    public List<Language> list() {
         return crudDAO.list();
     }
 
     @Override
     @Transactional
-    public UserRole get(Object id) {
-        return crudDAO.get(id);
+    public Language get(Object o) {
+        return crudDAO.get(o);
     }
 
     @Override
     @Transactional
-    public void delete(Object id) {
-        crudDAO.delete(id);
+    public void delete(Object o) {
+        crudDAO.delete(o);
     }
 
     @Override
     @Transactional
-    public void save(UserRole userRole) {
-        crudDAO.save(userRole);
+    public void save(Language language) {
+        crudDAO.save(language);
     }
 
     @Override
     @Transactional
-    public void update(UserRole userRole) {
-        crudDAO.update(userRole);
+    public void update(Language language) {
+        crudDAO.update(language);
     }
 }

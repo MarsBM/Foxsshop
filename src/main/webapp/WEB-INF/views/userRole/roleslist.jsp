@@ -7,6 +7,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <title><spring:message code="label.title.home" /></title>
     <link href="/css/main.css" type="text/css" rel="stylesheet">
 </head>
@@ -56,6 +57,5 @@
         </tr>
     </c:forEach>
 </table>
-
 </body>
 </html>

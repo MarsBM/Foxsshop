@@ -13,6 +13,8 @@ public interface CrudDAO<T> {
 
     void delete(Object o);
 
-    void saveOrUpdate(T t);
+    void save(T t);
+
+    void update(T t);
 
 }

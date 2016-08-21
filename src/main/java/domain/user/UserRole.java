@@ -18,7 +18,7 @@ public class UserRole {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     @NotBlank
     private String name;
 
