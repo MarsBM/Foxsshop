@@ -18,7 +18,7 @@ public class Product {
     @Column(name = "id")
     private Long id;
 
-       public Product() {
+    public Product() {
     }
 
     public Long getId() {
@@ -28,5 +28,4 @@ public class Product {
     public void setId(Long id) {
         this.id = id;
     }
-
 }

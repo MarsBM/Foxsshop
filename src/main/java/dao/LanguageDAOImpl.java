@@ -3,10 +3,14 @@ package dao;
 import dao.interfaces.CrudDAO;
 import domain.localization.Language;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.CriteriaQuery;
+import org.hibernate.engine.query.spi.HQLQueryPlan;
+import org.hibernate.loader.criteria.CriteriaQueryTranslator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Mars on 11.08.2016.
@@ -25,12 +29,12 @@ public class LanguageDAOImpl implements CrudDAO<Language> {
 
     @Override
     public Language get(Object o) {
-        return sessionFactory.getCurrentSession().get(Language.class, (Integer) o);
+        return sessionFactory.getCurrentSession().get(Language.class, (String) o);
     }
 
     @Override
     public void delete(Object o) {
-        Language language = sessionFactory.getCurrentSession().get(Language.class, (Integer) o);
+        Language language = sessionFactory.getCurrentSession().get(Language.class, (String) o);
         if (null != language) {
             sessionFactory.getCurrentSession().delete(language);
         }

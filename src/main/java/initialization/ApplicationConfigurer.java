@@ -126,7 +126,7 @@ public class ApplicationConfigurer extends WebMvcConfigurerAdapter {
     @Bean
     public LocaleResolver localeResolver(){
         CookieLocaleResolver resolver = new CookieLocaleResolver();
-        resolver.setDefaultLocale(new Locale("uk_UA"));
+        resolver.setDefaultLocale(new Locale("uk"));
         return resolver;
     }
 

@@ -11,9 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ControlPanel {
 
-    @Autowired
-    SessionFactory sessionFactory;
-
     @RequestMapping(value = "/")
     public String root() {
         return "redirect:/controlpanel";

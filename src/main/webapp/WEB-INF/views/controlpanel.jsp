@@ -22,5 +22,11 @@
     <p>
         <a href="/roles/list">UserRoles</a>
     </p>
+    <p>
+        <a href="/languages/list">Languages</a>
+    </p>
+    <p>
+        <a href="/categories/list">Categories</a>
+    </p>
 </body>
 </html>

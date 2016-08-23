@@ -16,6 +16,10 @@
         <a href="/logout" ><spring:message code="label.logout"/></a>
     </sec:authorize>
 </header>
+<p>
+    ${locale}<br />
+    ${lang}
+</p>
 <body>
 <p>
     <a href="/controlpanel">Home</a>
