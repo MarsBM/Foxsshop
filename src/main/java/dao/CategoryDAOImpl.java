@@ -2,11 +2,17 @@ package dao;
 
 import dao.interfaces.CrudDAO;
 import domain.category.Category;
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.CriteriaQuery;
+import org.hibernate.loader.criteria.CriteriaQueryTranslator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.Query;
+import java.io.Serializable;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Mars on 23.08.2016.
@@ -15,7 +21,7 @@ import java.util.List;
 public class CategoryDAOImpl implements CrudDAO<Category> {
 
     @Autowired
-    SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
 
     @SuppressWarnings("unchecked")
     @Override

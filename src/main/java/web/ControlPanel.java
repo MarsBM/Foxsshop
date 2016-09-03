@@ -1,9 +1,10 @@
 package web;
 
+import domain.category.Category;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by Mars on 11.08.2016.
@@ -20,4 +21,5 @@ public class ControlPanel {
     public String index() {
         return "controlpanel";
     }
+
 }

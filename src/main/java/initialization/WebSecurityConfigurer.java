@@ -50,6 +50,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 // указываем правила запросов
                 // по которым будет определятся доступ к ресурсам и остальным данным
                 .authorizeRequests()
+                .antMatchers("/css/**").permitAll()
                 //.antMatchers("/resources/**", "/**").permitAll()
                 .anyRequest().hasRole("ADMIN");
 

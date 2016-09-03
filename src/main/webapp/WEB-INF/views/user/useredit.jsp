@@ -8,7 +8,7 @@
 <html>
 <head>
     <title><spring:message code="label.title.home" /></title>
-    <link href="/css/main.css" type="text/css" rel="stylesheet">
+    <link href="/css/custom.css" type="text/css" rel="stylesheet">
 </head>
 <header>
     <sec:authorize access="isAuthenticated()">

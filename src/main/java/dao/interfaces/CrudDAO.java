@@ -1,6 +1,7 @@
 package dao.interfaces;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Mars on 18.08.2016.

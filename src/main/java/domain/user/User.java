@@ -14,39 +14,25 @@ import java.sql.Date;
  * Created by Mars on 11.08.2016.
  */
 @Entity
-@Table(name = "Users")
 public class User {
 
     @ManyToOne
-    @JoinColumn(name = "user_role")
+    @JoinColumn
     private UserRole userRole;
 
     @Id
-    @Column(name = "login")
-    @Pattern(regexp = "\\w{2,}")
     private String login;
 
-    @Column(name = "first_name", length = 25)
-    @Size(max = 25)
     private String firstName;
 
-    @Column(name = "last_name", length = 25)
-    @Size(max = 25)
     private String lastName;
 
-    @Column(name = "email", length = 25)
-    @Size(max = 25)
     private String email;
 
-    @Column(name = "status")
-    @NotNull
     private Boolean isEnabled;
 
-    @Column(name = "password")
-    @NotEmpty
     private String password;
 
-    @Column(name="create_date")
     private Date createDate;
 
     public User() {

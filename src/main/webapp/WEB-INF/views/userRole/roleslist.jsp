@@ -9,7 +9,7 @@
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <title><spring:message code="label.title.home" /></title>
-    <link href="/css/main.css" type="text/css" rel="stylesheet">
+    <link href="/css/custom.css" type="text/css" rel="stylesheet">
 </head>
 <header>
     <sec:authorize access="isAuthenticated()">

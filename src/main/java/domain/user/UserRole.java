@@ -10,20 +10,14 @@ import java.util.Set;
  * Created by Mars on 18.08.2016.
  */
 @Entity
-@Table(name = "Roles")
 public class UserRole {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Integer id;
 
-    @Column(name = "name", unique = true)
-    @NotBlank
     private String name;
 
-    @Column(name = "permission")
-    @NotBlank
     private String permission;
 
     @OneToMany(mappedBy = "userRole")
