@@ -26,6 +26,41 @@ public class UserDAOImpl implements CrudDAO<User> {
     }
 
     @Override
+    public List<User> list(int firstResult, int maxResults) {
+        return null;
+    }
+
+    @Override
+    public List<User> list(String searchString) {
+        return null;
+    }
+
+    @Override
+    public List<User> list(int firstResult, int maxResults, String searchString) {
+        return null;
+    }
+
+    @Override
+    public List<User> list(String sortBy, String sortMethod) {
+        return null;
+    }
+
+    @Override
+    public List<User> list(int firstResult, int maxResults, String sortBy, String sortMethod) {
+        return null;
+    }
+
+    @Override
+    public List<User> list(String searchString, String sortBy, String sortMethod) {
+        return null;
+    }
+
+    @Override
+    public List<User> list(int firstResult, int maxResults, String searchString, String sortBy, String sortMethod) {
+        return null;
+    }
+
+    @Override
     public User get(Object login) {
         return sessionFactory.getCurrentSession().get(User.class, (String) login);
     }
@@ -46,5 +81,15 @@ public class UserDAOImpl implements CrudDAO<User> {
     @Override
     public void update(User user) {
         sessionFactory.getCurrentSession().update(user);
+    }
+
+    @Override
+    public Long count() {
+        return null;
+    }
+
+    @Override
+    public Long count(String searchString) {
+        return null;
     }
 }

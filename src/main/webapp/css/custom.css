@@ -427,3 +427,8 @@ table.dataTable thead .sorting:after {
         border-left-width: 0;
     }
 }
+#alerts {
+    position: fixed;
+    top: 10%;
+    right: 1%;
+}

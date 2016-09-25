@@ -25,6 +25,41 @@ public class UserRoleServiceImpl implements CrudService<UserRole> {
     }
 
     @Override
+    public List<UserRole> list(int firstResult, int maxResults) {
+        return null;
+    }
+
+    @Override
+    public List<UserRole> list(String searchString) {
+        return null;
+    }
+
+    @Override
+    public List<UserRole> list(int firstResult, int maxResults, String searchString) {
+        return null;
+    }
+
+    @Override
+    public List<UserRole> list(String sortBy, String sortMethod) {
+        return null;
+    }
+
+    @Override
+    public List<UserRole> list(int firstResult, int maxResults, String sortBy, String sortMethod) {
+        return null;
+    }
+
+    @Override
+    public List<UserRole> list(String searchString, String sortBy, String sortMethod) {
+        return null;
+    }
+
+    @Override
+    public List<UserRole> list(int firstResult, int maxResults, String searchString, String sortBy, String sortMethod) {
+        return null;
+    }
+
+    @Override
     @Transactional
     public UserRole get(Object id) {
         return crudDAO.get(id);
@@ -46,5 +81,15 @@ public class UserRoleServiceImpl implements CrudService<UserRole> {
     @Transactional
     public void update(UserRole userRole) {
         crudDAO.update(userRole);
+    }
+
+    @Override
+    public Long count() {
+        return null;
+    }
+
+    @Override
+    public Long count(String searchString) {
+        return null;
     }
 }

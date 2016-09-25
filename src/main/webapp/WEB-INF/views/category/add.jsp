@@ -22,16 +22,9 @@
 </header>
 <%@ include file="../nav.jsp"%>
 <body>
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-lg-12">
-            <c:if test="${!empty error}">
-                <div class="alert alert-danger alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <spring:message code="${error}" />
-                </div>
-            </c:if>
-        </div>
+        <%@ include file="../alerts.jsp"%>
     </div>
     <div class="row">
         <div class="col-lg-12">
@@ -45,20 +38,7 @@
                     <spring:message code="category.add.panel.title" />
                 </div>
                 <div class="panel-body">
-                    <form:form action="add" commandName="category" method="post" class="form-horizontal">
-                        <div class="form-group">
-                            <form:label path="parentCategoryId" class="col-sm-2 control-label">
-                                <spring:message code="category.label.parent" />
-                            </form:label>
-                            <div class="col-sm-10">
-                                <form:select path="parentCategoryId" class="form-control">
-                                    <form:option value="0" label="TOP CATEGORY" />
-                                    <c:forEach items="${categories}" var="c" >
-                                        <form:option value="${c.id}" label="${c.nameUk}"/>
-                                    </c:forEach>
-                                </form:select>
-                            </div>
-                        </div>
+                    <form:form action="add" commandName="category" method="post" class="form-horizontal" enctype="multipart/form-data">
 
                         <div class="form-group">
                             <form:errors path="nameUk">
@@ -98,7 +78,7 @@
                                 <spring:message code="category.label.descriptionUk" />
                             </form:label>
                             <div class="col-sm-10">
-                                <form:textarea path="descriptionUk" class="form-control"/>
+                                <form:textarea id="descriptionUk" path="descriptionUk" class="form-control"/>
                             </div>
                         </div>
 
@@ -112,7 +92,7 @@
                                 <spring:message code="category.label.descriptionRu" />
                             </form:label>
                             <div class="col-sm-10">
-                                <form:textarea path="descriptionRu" class="form-control"/>
+                                <form:textarea id="descriptionRu" path="descriptionRu" class="form-control"/>
                             </div>
                         </div>
 
@@ -126,7 +106,8 @@
                                 <spring:message code="category.label.imageFilePath" />
                             </form:label>
                             <div class="col-sm-10">
-                                <form:input path="imageFilePath" class="form-control"/>
+                                <form:hidden path="imageFilePath" class="form-control"/>
+                                <input type="file" name="file"/>
                             </div>
                         </div>
 
@@ -135,49 +116,45 @@
                                 <spring:message code="category.label.enabled" />
                             </form:label>
                             <div class="col-sm-10">
-                                <form:checkbox path="enabled" class="checkbox"/>
+                                <form:checkbox path="enabled" class="checkbox" />
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <form:label path="top" class="col-sm-2 control-label">
-                                <spring:message code="category.label.top" />
-                            </form:label>
-                            <div class="col-sm-10">
-                                <form:checkbox path="top" class="checkbox"/>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <form:label path="sortOrder" class="col-sm-2 control-label">
-                                <spring:message code="category.label.sortOrder" />
-                            </form:label>
-                            <div class="col-sm-10">
-                                <form:input path="sortOrder" class="form-control"/>
-                            </div>
-                        </div>
-
+                        <hr />
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <a href="/categories/list" class="btn btn-danger">
-                                    <spring:message code="btn.cancel" />
-                                </a>
-
-                                <button type="submit" id="add" data-loading-text="<spring:message code="btn.add" />" class="btn btn-primary" autocomplete="off">
+                                <button type="submit" id="add" data-loading-text="<spring:message code="btn.add" />" class="btn btn-primary btn-lg" autocomplete="off">
                                     <spring:message code="btn.add" />
                                 </button>
+                                &nbsp;
+                                <spring:message code="label.or" />
+                                &nbsp;
+
+                                <a href="<c:url value="/categories/list" />" class="btn btn-danger btn-sm">
+                                    <spring:message code="btn.cancel" />
+                                </a>
                             </div>
                         </div>
                     </form:form>
                 </div>
-
             </div>
         </div>
     </div>
 </div>
 
+
+
+
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<%--<script src="//cdn.ckeditor.com/4.5.11/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace( 'descriptionUk' );
+    CKEDITOR.replace( 'descriptionRu' );
+</script>--%>
+
 <script src="/js/custom.js"></script>
 </body>
 </html>

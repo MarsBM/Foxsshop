@@ -10,6 +10,20 @@ public interface CrudDAO<T> {
 
     List<T> list();
 
+    List<T> list(int firstResult, int maxResults);
+
+    List<T> list(String searchString);
+
+    List<T> list(int firstResult, int maxResults, String searchString);
+
+    List<T> list(String sortBy, String sortMethod);
+
+    List<T> list(int firstResult, int maxResults, String sortBy, String sortMethod);
+
+    List<T> list(String searchString, String sortBy, String sortMethod);
+
+    List<T> list(int firstResult, int maxResults, String searchString, String sortBy, String sortMethod);
+
     T get(Object o);
 
     void delete(Object o);
@@ -17,5 +31,9 @@ public interface CrudDAO<T> {
     void save(T t);
 
     void update(T t);
+
+    Long count();
+
+    Long count(String searchString);
 
 }

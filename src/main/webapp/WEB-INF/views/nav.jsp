@@ -11,9 +11,10 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/">ControlPanel<span class="sr-only">(current)</span></a></li>
-                <li><a href="/users/list">Users</a></li>
+                <li><a href="<c:url value="/users/list" />">Users</a></li>
                 <li><a href="/roles/list">UserRoles</a></li>
-                <li><a href="/categories/list">Categories</a></li>
+                <li><a href="<c:url value="/categories/list" />">Categories</a></li>
+                <li><a href="<c:url value="/files" />">filemanager</a></li>
             </ul>
         </div>
     </div>

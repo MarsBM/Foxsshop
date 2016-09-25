@@ -36,7 +36,7 @@
                                 </c:if>
                             </div>
                         </div>
-                        <form role="form" method="post" action="/check">
+                        <form role="form" method="post" action="<c:url value="/check" />">
                             <fieldset>
                                 <div class="form-group">
                                     <input class="form-control" id="username" placeholder="<spring:message code="login.form.login" />" name="username" type="text" autofocus>

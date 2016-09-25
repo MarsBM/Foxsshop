@@ -26,6 +26,41 @@ public class UserServiceImpl implements CrudService<User> {
     }
 
     @Override
+    public List<User> list(int firstResult, int maxResults) {
+        return null;
+    }
+
+    @Override
+    public List<User> list(String searchString) {
+        return null;
+    }
+
+    @Override
+    public List<User> list(int firstResult, int maxResults, String searchString) {
+        return null;
+    }
+
+    @Override
+    public List<User> list(String sortBy, String sortMethod) {
+        return null;
+    }
+
+    @Override
+    public List<User> list(int firstResult, int maxResults, String sortBy, String sortMethod) {
+        return null;
+    }
+
+    @Override
+    public List<User> list(String searchString, String sortBy, String sortMethod) {
+        return null;
+    }
+
+    @Override
+    public List<User> list(int firstResult, int maxResults, String searchString, String sortBy, String sortMethod) {
+        return null;
+    }
+
+    @Override
     public User get(Object login) {
         return crudDAO.get(login);
     }
@@ -43,5 +78,15 @@ public class UserServiceImpl implements CrudService<User> {
     @Override
     public void update(User user) {
         crudDAO.update(user);
+    }
+
+    @Override
+    public Long count() {
+        return null;
+    }
+
+    @Override
+    public Long count(String searchString) {
+        return null;
     }
 }

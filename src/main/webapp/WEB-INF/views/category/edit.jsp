@@ -52,21 +52,6 @@
                                 <form:hidden path="id"/>
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <form:label path="parentCategoryId" class="col-sm-2 control-label">
-                                <spring:message code="category.label.parent" />
-                            </form:label>
-                            <div class="col-sm-10">
-                                <form:select path="parentCategoryId" class="form-control">
-                                    <form:option value="0" label="TOP CATEGORY" />
-                                    <c:forEach items="${categories}" var="c" >
-                                        <form:option value="${c.id}" label="${c.nameUk}"/>
-                                    </c:forEach>
-                                </form:select>
-                            </div>
-                        </div>
-
                         <div class="form-group">
                             <form:label path="nameUk" class="col-sm-2 control-label">
                                 <spring:message code="category.label.nameUk" />
@@ -90,7 +75,7 @@
                                 <spring:message code="category.label.descriptionUk" />
                             </form:label>
                             <div class="col-sm-10">
-                                <form:textarea path="descriptionUk" class="form-control"/>
+                                <form:textarea id="descriptionUk" path="descriptionUk" class="form-control"/>
                             </div>
                         </div>
 
@@ -99,7 +84,7 @@
                                 <spring:message code="category.label.descriptionRu" />
                             </form:label>
                             <div class="col-sm-10">
-                                <form:textarea path="descriptionRu" class="form-control"/>
+                                <form:textarea id="descriptionRu" path="descriptionRu" class="form-control"/>
                             </div>
                         </div>
 
@@ -109,6 +94,8 @@
                             </form:label>
                             <div class="col-sm-10">
                                 <form:input path="imageFilePath" class="form-control"/>
+                                <input type="file" name="file" />
+                                <img src="${category.imageFilePath}" alt="${id}" class="img-responsive img-thumbnail" width="250px" height="250px">
                             </div>
                         </div>
 
@@ -122,26 +109,9 @@
                         </div>
 
                         <div class="form-group">
-                            <form:label path="top" class="col-sm-2 control-label">
-                                <spring:message code="category.label.top" />
-                            </form:label>
-                            <div class="col-sm-10">
-                                <form:checkbox path="top" class="checkbox"/>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <form:label path="sortOrder" class="col-sm-2 control-label">
-                                <spring:message code="category.label.sortOrder" />
-                            </form:label>
-                            <div class="col-sm-10">
-                                <form:input path="sortOrder" class="form-control"/>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <a href="/categories/list" class="btn btn-danger">
+
+                                <a href="<c:url value="/categories/list" />" class="btn btn-danger">
                                     <spring:message code="btn.cancel" />
                                 </a>
                                 <button type="submit" class="btn btn-primary">
@@ -159,5 +129,13 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<%--<script src="//cdn.ckeditor.com/4.5.11/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace( 'descriptionUk' );
+    CKEDITOR.replace( 'descriptionRu' );
+</script>--%>
+
+<script src="/js/custom.js"></script>
 </body>
 </html>

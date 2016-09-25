@@ -2,6 +2,7 @@ package initialization;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.embedded.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 import javax.annotation.Resource;
+import javax.servlet.MultipartConfigElement;
 import javax.sql.DataSource;
 import java.util.Locale;
 import java.util.Properties;
@@ -55,6 +57,7 @@ public class ApplicationConfigurer extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/css/**").addResourceLocations("/css/");
         registry.addResourceHandler("/js/**").addResourceLocations("/js/");
+        registry.addResourceHandler("/img/**").addResourceLocations("/img/");
         registry.addResourceHandler("/views/**").addResourceLocations("/views/");
         registry.addResourceHandler("/errors/**").addResourceLocations("/errors/");
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
@@ -134,4 +137,12 @@ public class ApplicationConfigurer extends WebMvcConfigurerAdapter {
     public CommonsMultipartResolver multipartResolver() {
         return new CommonsMultipartResolver();
     }
+
+    /*@Bean
+    public MultipartConfigElement multipartConfigElement() {
+        MultipartConfigFactory factory = new MultipartConfigFactory();
+        factory.setMaxFileSize("12800KB");
+        factory.setMaxRequestSize("12800KB");
+        return factory.createMultipartConfig();
+    }*/
 }

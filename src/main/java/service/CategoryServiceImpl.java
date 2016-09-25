@@ -25,6 +25,41 @@ public class CategoryServiceImpl implements CrudService<Category> {
     }
 
     @Override
+    public List<Category> list(int firstResult, int maxResults) {
+        return crudDAO.list(firstResult, maxResults);
+    }
+
+    @Override
+    public List<Category> list(String searchString) {
+        return crudDAO.list(searchString);
+    }
+
+    @Override
+    public List<Category> list(int firstResult, int maxResults, String searchString) {
+        return crudDAO.list(firstResult, maxResults, searchString);
+    }
+
+    @Override
+    public List<Category> list(String sortBy, String sortMethod) {
+        return crudDAO.list(sortBy, sortMethod);
+    }
+
+    @Override
+    public List<Category> list(int firstResult, int maxResults, String sortBy, String sortMethod) {
+        return crudDAO.list(firstResult, maxResults, sortBy, sortMethod);
+    }
+
+    @Override
+    public List<Category> list(String searchString, String sortBy, String sortMethod) {
+        return crudDAO.list(searchString, sortBy, sortMethod);
+    }
+
+    @Override
+    public List<Category> list(int firstResult, int maxResults, String searchString, String sortBy, String sortMethod) {
+        return crudDAO.list(firstResult, maxResults, searchString, sortBy, sortMethod);
+    }
+
+    @Override
     public Category get(Object o) {
         return crudDAO.get(o);
     }
@@ -42,5 +77,15 @@ public class CategoryServiceImpl implements CrudService<Category> {
     @Override
     public void update(Category category) {
         crudDAO.update(category);
+    }
+
+    @Override
+    public Long count() {
+        return crudDAO.count();
+    }
+
+    @Override
+    public Long count(String searchString) {
+        return crudDAO.count(searchString);
     }
 }

@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Mars on 12.08.2016.
@@ -21,25 +22,23 @@ public class Customer {
 
     @Id
     @Column(name = "email", unique = true)
-    @Email
     private String email;
 
     @Column(name = "first_name", length = 25)
-    @NotBlank
-    @Size(min = 2, max = 25)
     private String firstName;
 
     @Column(name = "last_name", length = 25)
-    @NotBlank
-    @Size(min = 2, max = 25)
     private String lastName;
 
-    @Column(name = "telephone")
-    @NotBlank
-    private String telephone;
+    @ElementCollection
+    @CollectionTable(
+            name="PHONE",
+            joinColumns=@JoinColumn(name="OWNER_ID")
+    )
+    @Column(name="PHONE_NUMBER")
+    private List<String> telephones;
 
     @Column(name = "password")
-    @NotBlank
     private String password;
 
     @Column(name = "cart")
@@ -49,7 +48,6 @@ public class Customer {
     private String wishlist;
 
     @Column(name = "newsletter")
-    @NotNull
     private Boolean newsletter;
 
     @ManyToOne
@@ -57,11 +55,9 @@ public class Customer {
     private CustomerGroup customerGroup;
 
     @Column(name = "ip")
-    @NotBlank
     private String ip;
 
     @Column(name = "status")
-    @NotNull
     private Boolean isEnabled;
 
     @Column(name = "create_date")
@@ -81,6 +77,14 @@ public class Customer {
         this.id = id;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -97,20 +101,12 @@ public class Customer {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
+    public List<String> getTelephones() {
+        return telephones;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
+    public void setTelephones(List<String> telephones) {
+        this.telephones = telephones;
     }
 
     public String getPassword() {
@@ -183,30 +179,5 @@ public class Customer {
 
     public void setModifyDate(Date modifyDate) {
         this.modifyDate = modifyDate;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Customer customer = (Customer) o;
-
-        if (email != null ? !email.equals(customer.email) : customer.email != null) return false;
-        if (firstName != null ? !firstName.equals(customer.firstName) : customer.firstName != null) return false;
-        if (lastName != null ? !lastName.equals(customer.lastName) : customer.lastName != null) return false;
-        if (telephone != null ? !telephone.equals(customer.telephone) : customer.telephone != null) return false;
-        return customerGroup != null ? customerGroup.equals(customer.customerGroup) : customer.customerGroup == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = email != null ? email.hashCode() : 0;
-        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + (telephone != null ? telephone.hashCode() : 0);
-        result = 31 * result + (customerGroup != null ? customerGroup.hashCode() : 0);
-        return result;
     }
 }
