@@ -40,7 +40,7 @@
             email
         </th>
         <th>
-            isEnabled
+            enabled
         </th>
         <th>
             createDate

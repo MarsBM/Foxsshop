@@ -2,6 +2,7 @@ package dao;
 
 import dao.interfaces.CrudDAO;
 import domain.category.Category;
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -10,6 +11,8 @@ import javax.persistence.Query;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Locale;
+
+import static sun.security.krb5.Confounder.intValue;
 
 /**
  * Created by Mars on 23.08.2016.
@@ -32,7 +35,7 @@ public class CategoryDAOImpl implements CrudDAO<Category> {
     @Override
     public List<Category> list(int firstResult, int maxResults) {
         return sessionFactory.getCurrentSession()
-                .createQuery("from Category order by " + "nameUk" + " " + "desc")
+                .createQuery("from Category")
                 .setFirstResult(firstResult)
                 .setMaxResults(maxResults)
                 .list();
@@ -42,7 +45,7 @@ public class CategoryDAOImpl implements CrudDAO<Category> {
     @Override
     public List<Category> list(String searchString) {
         return sessionFactory.getCurrentSession()
-                .createQuery("from Category c where c.nameUk like :searchString or c.nameRu like :searchString")
+                .createQuery("select distinct c from Category c inner join c.descriptions cd where cd.name like :searchString")
                 .setParameter("searchString", "%" + searchString + "%")
                 .list();
     }
@@ -51,7 +54,7 @@ public class CategoryDAOImpl implements CrudDAO<Category> {
     @Override
     public List<Category> list(int firstResult, int maxResults, String searchString) {
         return sessionFactory.getCurrentSession()
-                .createQuery("from Category c where c.nameUk like :searchString or c.nameRu like :searchString")
+                .createQuery("select distinct c from Category c inner join c.descriptions cd where cd.name like :searchString")
                 .setParameter("searchString", "%" + searchString + "%")
                 .setFirstResult(firstResult)
                 .setMaxResults(maxResults)
@@ -89,7 +92,8 @@ public class CategoryDAOImpl implements CrudDAO<Category> {
     @Override
     public List<Category> list(int firstResult, int maxResults, String searchString, String sortBy, String sortMethod) {
         return sessionFactory.getCurrentSession()
-                .createQuery("from Category c where c.nameUk like :searchString or c.nameRu like :searchString order by " + sortBy + " " + sortMethod)
+                .createQuery("select distinct c from Category c inner join c.descriptions cd where cd.name like :searchString order by cd.name"
+                        + " " + sortMethod)
                 .setParameter("searchString", "%" + searchString + "%")
                 .setFirstResult(firstResult)
                 .setMaxResults(maxResults)
@@ -99,12 +103,12 @@ public class CategoryDAOImpl implements CrudDAO<Category> {
     @SuppressWarnings("unchecked")
     @Override
     public Category get(Object o) {
-        return sessionFactory.getCurrentSession().get(Category.class, (Long) o);
+        return sessionFactory.getCurrentSession().get(Category.class, (Integer) o);
     }
 
     @Override
     public void delete(Object o) {
-        Category category = sessionFactory.getCurrentSession().get(Category.class, (Long) o);
+        Category category = sessionFactory.getCurrentSession().get(Category.class, (Integer) o);
         if (null != category) {
             sessionFactory.getCurrentSession().delete(category);
         }
@@ -123,14 +127,14 @@ public class CategoryDAOImpl implements CrudDAO<Category> {
     @Override
     public Long count() {
         return (Long) sessionFactory.getCurrentSession()
-                .createQuery("select count(c) from Category c").uniqueResult();
+                .createQuery("select count(c) from Category c").iterate().next();
     }
 
     @Override
     public Long count(String searchString) {
         return (Long) sessionFactory.getCurrentSession()
-                .createQuery("select count(c) from Category c where c.nameUk like :searchString or c.nameRu like :searchString")
+                .createQuery("select count(distinct c) from Category c inner join c.descriptions cd where cd.name like :searchString")
                 .setParameter("searchString", "%" + searchString + "%")
-                .uniqueResult();
+                .iterate().next();
     }
 }

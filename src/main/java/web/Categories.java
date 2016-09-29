@@ -1,6 +1,8 @@
 package web;
 
 import domain.category.Category;
+import domain.category.CategoryDescription;
+import domain.localization.Language;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +28,8 @@ public class Categories {
 
     @Autowired
     private CrudService<Category> categoryService;
+    @Autowired
+    private CrudService<Language> languageService;
 
 
 
@@ -39,7 +43,8 @@ public class Categories {
                        @RequestParam(required = false) Integer number,
                        @RequestParam(required = false) Integer page,
                        @RequestParam(required = false) String sort,
-                       @RequestParam(required = false) Boolean success,
+                       @RequestParam(required = false) Boolean added,
+                       @RequestParam(required = false) Boolean updated,
                        Model model, WebRequest webRequest) {
 
         //Збереження кількості рядків для відображення
@@ -49,7 +54,8 @@ public class Categories {
         if (null == sort) sort = sortBy;
         sortBy = sort;
 
-        if (null == success) success = false;
+        if (null == added) added = false;
+        if (null == updated) updated = false;
         if (null == page || 0 == page) page = 1;
 
         if (null == query) query = "";
@@ -75,140 +81,104 @@ public class Categories {
         int first = resultsOnPage * (page - 1);
 
         //Завантаення списку
-        List<Category> categories = categoryService.list(first, resultsOnPage, query, field, method);
+        List<Category> categories = categoryService.list(/*first, resultsOnPage, query, field, method*/);
 
         //Розрахунок кількості сторінок
-        long listSize = categoryService.count(query);
+        long listSize = categoryService.count(/*query*/);
         long pages = 0;
         if (listSize / resultsOnPage > 0) {
             pages = listSize / resultsOnPage;
             if (listSize % resultsOnPage != 0) pages++;
         }
 
-        if (success) model.addAttribute("success", "category.success.added.new");
+        if (added) model.addAttribute("success", "category.success.added.new");
+        if (updated) model.addAttribute("success", "category.success.updated");
         model.addAttribute("sortBy", sortBy);
         model.addAttribute("categories",categories);
         model.addAttribute("resultsOnPage", resultsOnPage);
         model.addAttribute("pages", pages);
         model.addAttribute("currentPage", page);
 
-
-
-
-
         return "category/list";
     }
 
     @RequestMapping(value = "/new")
     public String addNew(Model model, Locale locale) {
-        model.addAttribute("category", new Category());
+
+        {
+
+        }
+
+
+        Category category = new Category();
+        List<Language> languages = languageService.list();
+        List<CategoryDescription> descriptions = new ArrayList<>();
+
+        for (Language l : languages) {
+            descriptions.add(new CategoryDescription(l, "", ""));
+        }
+        category.setDescriptions(descriptions);
+        model.addAttribute("category", category);
+        model.addAttribute("languages", languages);
         return "category/add";
     }
 
-    @SuppressWarnings("Duplicates")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String add(@ModelAttribute @Valid Category category,
-                      @RequestParam(value = "file", required = false) MultipartFile file,
                       BindingResult result,
                       SessionStatus status,
                       Model model) {
         if (result.hasErrors()) {
+            List<Language> languages = languageService.list();
             model.addAttribute("category", category);
+            model.addAttribute("languages", languages);
+            model.addAttribute("result", result.toString());
             return "category/add";
         } else {
             status.setComplete();
             if (null != category){
-                if (!file.isEmpty()) {
-                    try {
-                        byte[] bytes = file.getBytes();
-                        String name = file.getOriginalFilename();
-                        String rootPath = IMG_UPLOAD_FOLDER_ROOT + SUFFIX_IMAGE_PATH;
-                        File dir = new File(rootPath);
-
-                        if (!dir.exists()) {
-                            dir.mkdirs();
-                        }
-
-                        File uploadedFile = new File(dir.getAbsolutePath() + File.separator + name);
-
-                        if (!uploadedFile.exists()) {
-                            BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(uploadedFile));
-                            stream.write(bytes);
-                            stream.flush();
-                            stream.close();
-                        }
-
-                        category.setImageFilePath(SUFFIX_IMAGE_PATH + File.separator + name);
-                    } catch (Exception e) {
-                        model.addAttribute("category", category);
-                        model.addAttribute("error", "category.loadfile.error");
-                        return "category/add";
-                    }
-                }
                 categoryService.save(category);
             }
-            return "redirect:/categories/list?success=true";
+            return "redirect:/categories/list?added=true";
         }
     }
 
     @RequestMapping(value = "/delete/{id}")
-    public String delete(@PathVariable Long id, Model model) {
+    public String delete(@PathVariable Integer id) {
         categoryService.delete(id);
         return "redirect:/categories/list";
     }
 
     @RequestMapping(value = "/edit/{id}")
-    public String edit(@PathVariable Long id, Model model) {
+    public String edit(@PathVariable Integer id, Model model, WebRequest webRequest) {
         Category category = categoryService.get(id);
+        List<Language> languages = languageService.list();
+        List<CategoryDescription> descriptions = category.getDescriptions();
+
+        //Якщо в категорії в описах немає всім мов, то це створить відповідні записи в базу даних
+        if (descriptions.size() < languages.size()) {
+            for (Language l : languages) {
+                boolean contains = false;
+                for (CategoryDescription d : descriptions) {
+                    if (d.getLanguage().equals(l)) {
+                        contains = true;
+                        break;
+                    }
+                }
+                if (!contains) descriptions.add(new CategoryDescription(l, "", ""));
+            }
+        }
+
 
         model.addAttribute("category", category);
+        model.addAttribute("languages", languages);
         return "category/edit";
     }
 
-    @SuppressWarnings("Duplicates")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String update(@ModelAttribute Category category,
-                         @RequestParam(value = "file", required = false) MultipartFile file,
-                         Model model) {
-
-
-
-        if (!file.isEmpty()) {
-            try {
-                byte[] bytes = file.getBytes();
-                String name = file.getOriginalFilename();
-                String rootPath = IMG_UPLOAD_FOLDER_ROOT + SUFFIX_IMAGE_PATH;
-                File dir = new File(rootPath);
-
-                if (!dir.exists()) {
-                    dir.mkdirs();
-                }
-
-                File uploadedFile = new File(dir.getAbsolutePath() + File.separator + name);
-
-                if (!uploadedFile.exists()) {
-                    BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(uploadedFile));
-                    stream.write(bytes);
-                    stream.flush();
-                    stream.close();
-                }
-
-                category.setImageFilePath(SUFFIX_IMAGE_PATH + File.separator + name);
-            } catch (Exception e) {
-                model.addAttribute("category", category);
-                model.addAttribute("error", "category.loadfile.error");
-                return "category/edit";
-            }
-        }
+    public String update(@ModelAttribute Category category, Model model) {
         categoryService.update(category);
-        return "redirect:/categories/list?success=true";
-    }
-
-    @RequestMapping(value = "/test", method = RequestMethod.POST)
-    public @ResponseBody Category test() {
-        Category category = new Category();
-        category.setNameUk("test name");
-        return category;
+        return "redirect:/categories/list?updated=true";
     }
 
 }

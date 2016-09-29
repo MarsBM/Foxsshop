@@ -2,7 +2,6 @@ package initialization;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.embedded.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +21,6 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 import javax.annotation.Resource;
-import javax.servlet.MultipartConfigElement;
 import javax.sql.DataSource;
 import java.util.Locale;
 import java.util.Properties;
@@ -138,11 +136,4 @@ public class ApplicationConfigurer extends WebMvcConfigurerAdapter {
         return new CommonsMultipartResolver();
     }
 
-    /*@Bean
-    public MultipartConfigElement multipartConfigElement() {
-        MultipartConfigFactory factory = new MultipartConfigFactory();
-        factory.setMaxFileSize("12800KB");
-        factory.setMaxRequestSize("12800KB");
-        return factory.createMultipartConfig();
-    }*/
 }

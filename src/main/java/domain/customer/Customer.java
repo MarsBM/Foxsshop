@@ -1,20 +1,23 @@
 package domain.customer;
 
+import domain.order.Order;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Mars on 12.08.2016.
  */
 @Entity
 @Table(name = "Customers")
-public class Customer {
+public class Customer implements Serializable{
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -65,6 +68,12 @@ public class Customer {
 
     @Column(name = "modify_date")
     private Date modifyDate;
+
+    @OneToMany(mappedBy = "customer")
+    private Set<CartItem> cartItems;
+
+    @OneToMany(mappedBy = "customer")
+    private Set<Order> orders;
 
     public Customer() {
     }

@@ -1,20 +1,19 @@
 package domain.user;
 
 
-import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
+import domain.order.Order;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-import java.sql.Date;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Set;
+/*import java.sql.Date;*/
 
 /**
  * Created by Mars on 11.08.2016.
  */
 @Entity
-public class User {
+public class User implements Serializable{
 
     @ManyToOne
     @JoinColumn
@@ -29,11 +28,14 @@ public class User {
 
     private String email;
 
-    private Boolean isEnabled;
+    private Boolean enabled;
 
     private String password;
 
     private Date createDate;
+
+    @OneToMany(mappedBy = "manager")
+    private Set<Order> orders;
 
     public User() {
     }
@@ -79,11 +81,11 @@ public class User {
     }
 
     public Boolean getEnabled() {
-        return isEnabled;
+        return enabled;
     }
 
     public void setEnabled(Boolean enabled) {
-        isEnabled = enabled;
+        this.enabled = enabled;
     }
 
     public String getPassword() {

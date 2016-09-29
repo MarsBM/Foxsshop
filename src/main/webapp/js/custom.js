@@ -2,12 +2,15 @@ $('#add').on('click', function () {
     $(this).button('loading')
 });
 $('#search').on('keyup', function(){
-    String.prototype.replaceAll = function(search, replacement) {
-        var target = this;
-        return target.replace(new RegExp(search, 'g'), replacement);
-    };
-    var query = new String($('#search').val()).replaceAll();
-    $('#body').load('?query=' + $('#search').val().replaceAll(' ','+') + ' #body');
+    setTimeout(function () {
+        String.prototype.replaceAll = function(search, replacement) {
+            var target = this;
+            return target.replace(new RegExp(search, 'g'), replacement);
+        };
+        var query = new String($('#search').val()).replaceAll();
+        $('#body').load('?query=' + $('#search').val().replaceAll(' ','+') + ' #body');
+    }, 1000);
+
 });
 $('#number').on('change', function(){
     $('#body').load('?number=' + $('#number').val() + ' #body');
@@ -40,13 +43,3 @@ function select() {
 function del(name) {
     $('.container-fluid').load('/delete?name=' + name + ' .container-fluid');
 };
-function test() {
-    $.ajax({
-        url: '/categories/test',
-        method: 'post',
-        success: function (data, textStatus) {
-            alert(data.nameUk + "  " + textStatus)
-            $('#test').innerHTML = '<p>' + data + '</p>';
-        }
-    });
-}

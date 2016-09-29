@@ -24,8 +24,6 @@
 <%@ include file="../nav.jsp"%>
 <body>
 
-<%----%>
-
 <c:forEach items="${list}" var="l">
     <p>
         <c:if test="${l.directory == true}">
@@ -33,13 +31,6 @@
         </c:if>
     </p>
 </c:forEach>
-
-<%----%>
-<button onclick="test()">Click me</button>
-<div id="test">
-
-</div>
-<%----%>
 
 <div class="container-fluid">
 
@@ -61,7 +52,6 @@
                         <div class="col-md-4">
                             <%@ include file="../search.jsp"%>
                         </div>
-
                         <div class="col-md-2 pull-right">
                             <%@ include file="../resultsonpage.jsp"%>
                         </div>
@@ -109,18 +99,21 @@
                             <tbody>
                             <c:if test="${empty categories}">
                                 <tr>
-                                    <td class="text-center" colspan="2">
+                                    <td class="text-center" colspan="3">
                                         <spring:message code="category.list.empty" />
                                     </td>
                                 </tr>
                             </c:if>
                             <c:forEach items="${categories}" var="c">
+
                                 <tr id="${c.id}">
                                     <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                                        <img src="${c.imageFilePath}" alt="${c.nameUk}" class="img-responsive" />
+                                        <img class="img-responsive center-block" style="max-height: 150px; max-width: 100%" src="${c.imageFilePath}" alt="${c.imageFilePath}">
                                     </td>
                                     <td class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                                        <p class="text-left">${c.nameUk}</p>
+                                        <c:forEach items="${c.descriptions}" var="d" varStatus="i">
+                                            <p class="text-left">${d.name}</p>
+                                        </c:forEach>
                                     </td>
                                     <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
 
