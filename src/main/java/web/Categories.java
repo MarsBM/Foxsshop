@@ -81,10 +81,10 @@ public class Categories {
         int first = resultsOnPage * (page - 1);
 
         //Завантаення списку
-        List<Category> categories = categoryService.list(/*first, resultsOnPage, query, field, method*/);
+        List<Category> categories = categoryService.list(first, resultsOnPage, query, field, method);
 
         //Розрахунок кількості сторінок
-        long listSize = categoryService.count(/*query*/);
+        long listSize = categoryService.count(query);
         long pages = 0;
         if (listSize / resultsOnPage > 0) {
             pages = listSize / resultsOnPage;
@@ -104,11 +104,6 @@ public class Categories {
 
     @RequestMapping(value = "/new")
     public String addNew(Model model, Locale locale) {
-
-        {
-
-        }
-
 
         Category category = new Category();
         List<Language> languages = languageService.list();

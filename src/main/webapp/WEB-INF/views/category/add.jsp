@@ -13,18 +13,24 @@
     <link rel="stylesheet" href="/css/custom.css" >
 
     <title><spring:message code="category.add.page.title" /></title>
+
+    <%--URL`s--%>
+    <c:url value="/logout" var="logout" />
+    <c:url value="/categories/list" var="list_url" />
+    <c:set var="add_action" value="/categories/add"/>
+    <c:set var="comandName" value="category"/>
+    <%----%>
 </head>
 
 <header>
     <sec:authorize access="isAuthenticated()">
         <sec:authentication property="principal.username"/>
-        <a href="/logout" ><spring:message code="label.logout"/></a>
+        <a href="${logout}" ><spring:message code="label.logout"/></a>
     </sec:authorize>
 </header>
-${result}
 <%@ include file="../nav.jsp"%>
 <body>
-<form:form method="post" action="/categories/add" commandName="category" class="form-horizontal">
+<form:form method="post" action="${add_action}" commandName="${comandName}" class="form-horizontal">
     <div class="container">
 
         <div class="row">
@@ -56,27 +62,12 @@ ${result}
                                 <div role="tabpanel" class="tab-pane active" id="main">
 
                                     <form:hidden path="id"/>
-                                    <%--<div class="form-group">
-                                        <form:label path="id" class="col-sm-2 control-label">
-                                            <spring:message code="category.label.id" />
-                                        </form:label>
-                                        <div class="col-sm-10">
-                                            <div class="col-sm-10">
-                                                <p class="form-control-static">${id}</p>
-                                            </div>
-                                            <form:hidden path="id"/>
-                                        </div>
-                                    </div>--%>
-
                                     <div class="form-group">
                                         <form:label path="imageFilePath" class="col-sm-2 control-label">
                                             <spring:message code="category.label.imageFilePath" />
                                         </form:label>
                                         <div class="col-sm-10">
                                             <form:input path="imageFilePath" class="form-control"/>
-                                            <%--<c:if test="${!empty category.imageFilePath}">
-                                                <img src="${category.imageFilePath}" alt="${category.imageFilePath}" class="img-responsive img-thumbnail" width="250px" height="250px">
-                                            </c:if>--%>
                                         </div>
                                     </div>
 
@@ -133,7 +124,7 @@ ${result}
                     </div><%--.panel-body--%>
 
                     <div class="panel-footer">
-                        <a href="<c:url value="/categories/list" />" class="btn btn-danger">
+                        <a href="${list_url}" class="btn btn-danger">
                             <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
                             <spring:message code="btn.cancel" />
                         </a>
@@ -147,6 +138,17 @@ ${result}
             </div>
         </div>
     </div> <%--.container--%>
+    <%----%>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>
+
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <%@ include file="../filemanager.jsp"%>
+            </div>
+        </div>
+    </div>
+    <%----%>
 </form:form>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

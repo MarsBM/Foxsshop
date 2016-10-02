@@ -13,18 +13,25 @@
         <link rel="stylesheet" href="/css/custom.css" >
 
         <title><spring:message code="category.edit.page.title" /></title>
+
+        <%--URL`s--%>
+        <c:url value="/logout" var="logout" />
+        <c:url value="/categories/list" var="list_url" />
+        <c:set var="update_action" value="/categories/update"/>
+        <c:set var="comandName" value="category"/>
+        <%----%>
     </head>
 
     <header>
         <sec:authorize access="isAuthenticated()">
             <sec:authentication property="principal.username"/>
-            <a href="/logout" ><spring:message code="label.logout"/></a>
+            <a href="${logout}" ><spring:message code="label.logout"/></a>
         </sec:authorize>
     </header>
 
     <%@ include file="../nav.jsp"%>
     <body>
-        <form:form method="post" action="/categories/update" commandName="category" class="form-horizontal">
+        <form:form method="post" action="${update_action}" commandName="${comandName}" class="form-horizontal">
         <div class="container">
 
             <div class="row">
@@ -132,14 +139,10 @@
                         </div><%--.panel-body--%>
 
                         <div class="panel-footer">
-                            <a href="<c:url value="/categories/list" />" class="btn btn-danger">
+                            <a href="${list_url}" class="btn btn-danger">
                                 <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
                                 <spring:message code="btn.cancel" />
                             </a>
-                            <%--<button type="submit" class="btn btn-primary">
-                                <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
-                                <spring:message code="btn.save" />
-                            </button>--%>
                             <button type="submit" id="add" data-loading-text="<spring:message code="btn.save" />" class="btn btn-primary" autocomplete="off">
                                 <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
                                 <spring:message code="btn.save" />

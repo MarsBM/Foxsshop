@@ -1,12 +1,18 @@
-var formData = new FormData($('form')[0]);
+function loadList() {
+    $.ajax({
+        url: '/load',
 
-$.ajax({
-    url: '/upload',
-    type: 'post',
-    data: formData,
-    contentType: false,
-    processData: false,
-    success: function (result){
-        alert(result);
-    }
-});
+        success: function (data, textStatus) {
+            var reader = new FileReader(data[0]);
+            var files = data;
+            $.each(data, function(i, val) {
+                /*var img = document.createElement("img");*/
+                /*$("#t").attr({ src: val, alt: val });*/
+               /* img.src = window.URL.createObjectURL(val);*/
+                /*console.log("Filename: " + val.name);
+                console.log("Type: " + val.type);
+                console.log("Size: " + val.size + " bytes");*/
+            });
+        }
+    });
+}

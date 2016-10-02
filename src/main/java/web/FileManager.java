@@ -5,11 +5,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.net.URISyntaxException;
 
 /**
  * Created by Mars on 23.09.2016.
@@ -17,15 +18,16 @@ import java.io.*;
 @Controller
 public class FileManager {
 
-    private static final String path = "D:/Programing/shop/Foxsshop/src/main/webapp";
-    private static final String root = "/img";
+    private static final String HOST = "D:/Programing/shop/Foxsshop/src/main/webapp";
+    private static final String PATH = "/img";
 
     @RequestMapping("/files")
     public String redirect(@RequestParam(required = false) String action,
                            @RequestParam(required = false) String to,
                            @RequestParam(required = false) String from,
-                           Model model) {
-        StringBuilder currentDir = new StringBuilder(root);
+                           Model model, WebRequest webRequest) {
+        //String HOST = webRequest.getContextPath();
+        StringBuilder currentDir = new StringBuilder(PATH);
         if (null == action) action = "";
         if (null == to) to = "";
 
@@ -34,7 +36,7 @@ public class FileManager {
             currentDir.append("/").append(to);
         }
         if (action.equals("up")) {
-            if (!from.equals(root)) {
+            if (!from.equals(PATH)) {
                 currentDir.replace(0, currentDir.length(), from);
                 int i = currentDir.lastIndexOf("/");
                 currentDir.delete(i, currentDir.length());
@@ -42,21 +44,20 @@ public class FileManager {
         }
 
 
-
-        File files = new File(path + currentDir);
+        File files = new File(HOST + currentDir);
         File[] filesList = files.listFiles();
-
         model.addAttribute("files", filesList);
         model.addAttribute("currentDir", currentDir.toString());
-        model.addAttribute("rootDir", root);
+        model.addAttribute("rootDir", PATH);
+        model.addAttribute("www", webRequest.toString());
         return "filemanager";
     }
 
-    @RequestMapping(value = "/download", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/download", method = RequestMethod.GET)
     public void download(@RequestParam(required = false) String name,
                          HttpServletResponse response) throws IOException {
 
-        File file = new File(path + name);
+        File file = new File(HOST + name);
         InputStream is = new FileInputStream(file);
 
         // MIME type of the file
@@ -77,14 +78,13 @@ public class FileManager {
     }
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public @ResponseBody
-    String upload(@RequestParam(value = "file", required = false) MultipartFile file) {
+    public String upload(@RequestParam(value = "file", required = false) MultipartFile file) {
 
         if (!file.isEmpty()) {
             try {
                 byte[] bytes = file.getBytes();
                 String name = file.getOriginalFilename();
-                String rootPath = path + root;
+                String rootPath = HOST + PATH;
                 File dir = new File(rootPath);
 
                 if (!dir.exists()) {
@@ -102,8 +102,8 @@ public class FileManager {
 
             }
         }
-        return "Success";
-    }
+        return "redirect:/files";
+    }*/
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String delete(@RequestParam(required = false) String name,

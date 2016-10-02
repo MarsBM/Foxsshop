@@ -5,7 +5,6 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,9 +14,38 @@
 
     <title><spring:message code="category.page.title" /></title>
 </head>
+<button onclick="loadList()">
+    START
+</button>
+<div id="aa">
+www == ${pageContext.request.contextPath}
+
+</div>
+<img id="t" src=""/>
+<div id="your-files" style="background-color: #b52b27; height: 100px; width: 100px;"></div>
+<script>
+    var target = document.getElementById("your-files");
+    target.addEventListener("dragover", function(event) {
+        event.preventDefault(); // отменяем действие по умолчанию
+    }, false);
+    target.addEventListener("drop", function(event) {
+        // отменяем действие по умолчанию
+        event.preventDefault();
+        var i = 0,
+                files = event.dataTransfer.files,
+                len = files.length;
+        for (; i < len; i++) {
+            console.log("Filename: " + files[i].name);
+            console.log("Filename: " + files[i].pathname);
+            console.log("Type: " + files[i].type);
+            console.log("Size: " + files[i].size + " bytes");
+        }
+    }, false);
+</script>
+
 <body>
     <div class="container-fluid">
-
+        wwww == ${www}
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="row">
@@ -93,6 +121,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="/js/custom.js"></script>
+<script src="/js/upload.js"></script>
 
 </body>
 </html>

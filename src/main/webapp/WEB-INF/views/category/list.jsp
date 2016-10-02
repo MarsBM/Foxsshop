@@ -14,16 +14,23 @@
     <link rel="stylesheet" href="/css/custom.css">
 
     <title><spring:message code="category.page.title" /></title>
+
+    <%--URL`s--%>
+    <c:url value="/logout" var="logout" />
+    <c:url value="/" var="home_url" />
+    <c:url value="/categories/new" var="new_btn"/>
+    <c:url value="/categories/edit" var="edit_btn"/>
+    <c:url value="/categories/delete" var="delete_btn"/>
+    <%----%>
 </head>
 <header>
     <sec:authorize access="isAuthenticated()">
         <sec:authentication property="principal.username"/>
-        <a href="/logout" ><spring:message code="label.logout"/></a>
+        <a href="${logout}" ><spring:message code="label.logout"/></a>
     </sec:authorize>
 </header>
 <%@ include file="../nav.jsp"%>
 <body>
-
 <c:forEach items="${list}" var="l">
     <p>
         <c:if test="${l.directory == true}">
@@ -35,7 +42,7 @@
 <div class="container-fluid">
 
     <ol class="breadcrumb">
-        <li><a href=" <c:url value="/" />"><spring:message code="breadcrumb.home" /></a></li>
+        <li><a href=" <c:url value="${home_url}" />"><spring:message code="breadcrumb.home" /></a></li>
         <li class="active"><spring:message code="category.page.title" /></li>
     </ol>
 
@@ -90,7 +97,7 @@
                                     <spring:message code="category.name" />
                                 </th>
                                 <th>
-                                    <a href="<c:url value="/categories/new" />" class="btn btn-primary">
+                                    <a href="${new_btn}" class="btn btn-primary">
                                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                     </a>
                                 </th>
@@ -117,10 +124,10 @@
                                     </td>
                                     <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
 
-                                        <a href="<c:url value="/categories/edit/${c.id}" />" class="btn btn-primary">
+                                        <a href="${edit_btn}/${c.id}" class="btn btn-primary">
                                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                         </a>
-                                        <a href="<c:url value="/categories/delete/${c.id}" />" class="btn btn-danger">
+                                        <a href="${delete_btn}/${c.id}" class="btn btn-danger">
                                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                         </a>
 
