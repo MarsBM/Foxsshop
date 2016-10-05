@@ -7,17 +7,18 @@
 <%@taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 <c:url value="/" var="home_url" />
-<c:url value="/categories/edit" var="edit_btn"/>
-<c:url value="/categories/delete" var="delete_btn"/>
+<c:url value="/products/edit" var="edit_btn"/>
+<c:url value="/products/delete" var="delete_btn"/>
 
-<c:set value="3" var="list_empty_colspan" />
+<c:set value="4" var="list_empty_colspan" />
 
-<spring:message code="category.page.title" var="page_title"/>
+<spring:message code="product.page.title" var="page_title"/>
 <spring:message code="breadcrumb.home" var="breadcrumb_home"/>
 <spring:message code="sort.by.name.asc" var="sort_by_name_asc"/>
 <spring:message code="sort.by.name.desc" var="sort_by_name_desc"/>
 <spring:message code="label.image" var="label_image"/>
 <spring:message code="label.name" var="label_name"/>
+<spring:message code="label.category" var="label_category"/>
 <spring:message code="label.list.empty" var="label_list_empty"/>
 <spring:message code="text.confirm.delete" var="text_confirm_delete"/>
 <html>
@@ -93,6 +94,9 @@
                                     <th id="name">
                                         ${label_name}
                                     </th>
+                                    <th id="category">
+                                        ${label_category}
+                                    </th>
                                     <th>
                                         <a href="${edit_btn}" class="btn btn-primary">
                                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -101,29 +105,40 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:if test="${empty categories}">
+                                <c:if test="${empty products}">
                                     <tr>
                                         <td class="text-center" colspan="${list_empty_colspan}">
                                             ${label_list_empty}
                                         </td>
                                     </tr>
                                 </c:if>
-                                <c:forEach items="${categories}" var="c">
+                                <c:forEach items="${products}" var="p">
 
-                                    <tr id="${c.id}">
+                                    <tr id="${p.id}">
                                         <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                                            <img class="img-responsive center-block" style="max-height: 150px; max-width: 100%" src="${c.imageFilePath}" alt="${c.imageFilePath}">
+                                            <%--<img class="img-responsive center-block" style="max-height: 150px; max-width: 100%" src="${p.imageFilePath}" alt="${c.imageFilePath}">--%>
                                         </td>
                                         <td class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                                            <c:forEach items="${c.descriptions}" var="d" varStatus="i">
-                                                <p class="text-left">${d.name}</p>
+                                            <c:forEach items="${p.descriptions}" var="d" varStatus="i">
+                                                <c:if test="${d.language.code eq locale}">
+                                                    <p class="text-left">${d.name}</p>
+                                                </c:if>
+                                            </c:forEach>
+                                        </td>
+                                        <td class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                                            <c:forEach items="${p.categories}" var="с">
+                                                <c:forEach items="${с.descriptions}" var="d">
+                                                    <c:if test="${d.language.code eq locale}">
+                                                        <p class="text-left">${d.name}</p>
+                                                    </c:if>
+                                                </c:forEach>
                                             </c:forEach>
                                         </td>
                                         <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                                            <a href="${edit_btn}?id=${c.id}" class="btn btn-primary">
+                                            <a href="${edit_btn}?id=${p.id}" class="btn btn-primary">
                                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                             </a>
-                                            <a href="${delete_btn}?id=${c.id}" class="btn btn-danger" onclick="return confirm('${text_confirm_delete}')">
+                                            <a href="${delete_btn}?id=${p.id}" class="btn btn-danger" onclick="return confirm('${text_confirm_delete}')">
                                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                             </a>
 

@@ -39,28 +39,28 @@ public class LanguageDAOImpl implements CrudDAO<Language> {
     }
 
     @Override
-    public List<Language> list(String sortBy, String sortMethod) {
+    public List<Language> list(String sortBy, boolean desc) {
         return null;
     }
 
     @Override
-    public List<Language> list(int firstResult, int maxResults, String sortBy, String sortMethod) {
+    public List<Language> list(int firstResult, int maxResults, String sortBy, boolean desc) {
         return null;
     }
 
     @Override
-    public List<Language> list(String searchString, String sortBy, String sortMethod) {
+    public List<Language> list(String searchString, String sortBy, boolean desc) {
         return null;
     }
 
     @Override
-    public List<Language> list(int firstResult, int maxResults, String searchString, String sortBy, String sortMethod) {
+    public List<Language> list(int firstResult, int maxResults, String searchString, String sortBy, boolean desc) {
         return null;
     }
 
     @Override
     public Language get(Object o) {
-        return null;
+        return sessionFactory.getCurrentSession().get(Language.class, (String) o);
     }
 
     @Override

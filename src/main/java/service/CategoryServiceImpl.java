@@ -40,23 +40,23 @@ public class CategoryServiceImpl implements CrudService<Category> {
     }
 
     @Override
-    public List<Category> list(String sortBy, String sortMethod) {
-        return crudDAO.list(sortBy, sortMethod);
+    public List<Category> list(String sortBy, boolean desc) {
+        return crudDAO.list(sortBy, desc);
     }
 
     @Override
-    public List<Category> list(int firstResult, int maxResults, String sortBy, String sortMethod) {
-        return crudDAO.list(firstResult, maxResults, sortBy, sortMethod);
+    public List<Category> list(int firstResult, int maxResults, String sortBy, boolean desc) {
+        return crudDAO.list(firstResult, maxResults, sortBy, desc);
     }
 
     @Override
-    public List<Category> list(String searchString, String sortBy, String sortMethod) {
-        return crudDAO.list(searchString, sortBy, sortMethod);
+    public List<Category> list(String searchString, String sortBy, boolean desc) {
+        return crudDAO.list(searchString, sortBy, desc);
     }
 
     @Override
-    public List<Category> list(int firstResult, int maxResults, String searchString, String sortBy, String sortMethod) {
-        return crudDAO.list(firstResult, maxResults, searchString, sortBy, sortMethod);
+    public List<Category> list(int firstResult, int maxResults, String searchString, String sortBy, boolean desc) {
+        return crudDAO.list(firstResult, maxResults, searchString, sortBy, desc);
     }
 
     @Override

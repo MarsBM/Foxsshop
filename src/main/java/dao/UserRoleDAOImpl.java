@@ -40,23 +40,29 @@ public class UserRoleDAOImpl implements CrudDAO<UserRole> {
     }
 
     @Override
-    public List<UserRole> list(String sortBy, String sortMethod) {
+    public List<UserRole> list(String sortBy, boolean desc) {
         return null;
     }
 
     @Override
-    public List<UserRole> list(int firstResult, int maxResults, String sortBy, String sortMethod) {
+    public List<UserRole> list(int firstResult, int maxResults, String sortBy, boolean desc) {
         return null;
     }
 
     @Override
-    public List<UserRole> list(String searchString, String sortBy, String sortMethod) {
+    public List<UserRole> list(String searchString, String sortBy, boolean desc) {
         return null;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public List<UserRole> list(int firstResult, int maxResults, String searchString, String sortBy, String sortMethod) {
-        return null;
+    public List<UserRole> list(int firstResult, int maxResults, String searchString, String sortBy, boolean desc) {
+        return sessionFactory.getCurrentSession()
+                .createQuery("from UserRole where name like :searchString or permission like :searchString order by " + sortBy + (desc ? " desc" : ""))
+                .setParameter("searchString", "%" + searchString + "%")
+                .setFirstResult(firstResult)
+                .setMaxResults(maxResults)
+                .list();
     }
 
     @Override
@@ -89,6 +95,9 @@ public class UserRoleDAOImpl implements CrudDAO<UserRole> {
 
     @Override
     public Long count(String searchString) {
-        return null;
+        return (Long) sessionFactory.getCurrentSession()
+                .createQuery("select count(distinct ur) from UserRole ur where ur.name like :searchString or ur.permission like :searchString")
+                .setParameter("searchString", "%" + searchString + "%")
+                .iterate().next();
     }
 }

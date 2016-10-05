@@ -4,6 +4,8 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 /**
@@ -16,11 +18,13 @@ public class UserRole {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Size(min = 5, message = "err.name")
     private String name;
 
+    @NotBlank
     private String permission;
 
-    @OneToMany(mappedBy = "userRole")
+    @OneToMany(mappedBy = "userRole", fetch = FetchType.EAGER)
     private Set<User> users;
 
     public UserRole() {
@@ -77,8 +81,4 @@ public class UserRole {
         return result;
     }
 
-   /* @Override
-    public String toString() {
-        return name;
-    }*/
 }

@@ -16,3 +16,17 @@ function loadList() {
         }
     });
 }
+
+
+function goto(to, from) {
+    $('.container-fluid').load('?action=goto&to=' + to + '&from=' + from + ' .container-fluid');
+};
+function up(from) {
+    $('.container-fluid').load('?action=up&from=' + from + ' .container-fluid');
+};
+function select() {
+    $('.container-fluid').load('?action=up&from=' + from + ' .container-fluid');
+};
+function del(name) {
+    $('.container-fluid').load('/delete?name=' + name + ' .container-fluid');
+};

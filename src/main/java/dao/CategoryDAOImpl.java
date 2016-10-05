@@ -23,11 +23,15 @@ public class CategoryDAOImpl implements CrudDAO<Category> {
     @Autowired
     private SessionFactory sessionFactory;
 
+    private final String QUERY1 = "from Category";
+    private final String QUERY2 = "select distinct c from Category c inner join c.descriptions cd where cd.name like :searchString";
+    private final String QUERY3 = "select count(distinct c) from Category c inner join c.descriptions cd where cd.name like :searchString";
+
     @SuppressWarnings("unchecked")
     @Override
     public List<Category> list() {
         return sessionFactory.getCurrentSession()
-                .createQuery("from Category")
+                .createQuery(QUERY1)
                 .list();
     }
 
@@ -35,7 +39,7 @@ public class CategoryDAOImpl implements CrudDAO<Category> {
     @Override
     public List<Category> list(int firstResult, int maxResults) {
         return sessionFactory.getCurrentSession()
-                .createQuery("from Category")
+                .createQuery(QUERY1)
                 .setFirstResult(firstResult)
                 .setMaxResults(maxResults)
                 .list();
@@ -45,7 +49,7 @@ public class CategoryDAOImpl implements CrudDAO<Category> {
     @Override
     public List<Category> list(String searchString) {
         return sessionFactory.getCurrentSession()
-                .createQuery("select distinct c from Category c inner join c.descriptions cd where cd.name like :searchString")
+                .createQuery(QUERY2)
                 .setParameter("searchString", "%" + searchString + "%")
                 .list();
     }
@@ -54,7 +58,7 @@ public class CategoryDAOImpl implements CrudDAO<Category> {
     @Override
     public List<Category> list(int firstResult, int maxResults, String searchString) {
         return sessionFactory.getCurrentSession()
-                .createQuery("select distinct c from Category c inner join c.descriptions cd where cd.name like :searchString")
+                .createQuery(QUERY2)
                 .setParameter("searchString", "%" + searchString + "%")
                 .setFirstResult(firstResult)
                 .setMaxResults(maxResults)
@@ -63,37 +67,27 @@ public class CategoryDAOImpl implements CrudDAO<Category> {
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<Category> list(String sortBy, String sortMethod) {
-        return sessionFactory.getCurrentSession()
-                .createQuery("from Category order by " + sortBy + " " + sortMethod)
-                .list();
+    public List<Category> list(String sortBy, boolean desc) {
+        return null;
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<Category> list(int firstResult, int maxResults, String sortBy, String sortMethod) {
-        return sessionFactory.getCurrentSession()
-                .createQuery("from Category order by " + sortBy + " " + sortMethod)
-                .setFirstResult(firstResult)
-                .setMaxResults(maxResults)
-                .list();
+    public List<Category> list(int firstResult, int maxResults, String sortBy, boolean desc) {
+        return null;
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<Category> list(String searchString, String sortBy, String sortMethod) {
-        return sessionFactory.getCurrentSession()
-                .createQuery("from Category c where c.nameUk like :searchString or c.nameRu like :searchString order by " + sortBy + " " + sortMethod)
-                .setParameter("searchString", "%" + searchString + "%")
-                .list();
+    public List<Category> list(String searchString, String sortBy, boolean desc) {
+        return null;
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<Category> list(int firstResult, int maxResults, String searchString, String sortBy, String sortMethod) {
+    public List<Category> list(int firstResult, int maxResults, String searchString, String sortBy, boolean desc) {
         return sessionFactory.getCurrentSession()
-                .createQuery("select distinct c from Category c inner join c.descriptions cd where cd.name like :searchString order by cd.name"
-                        + " " + sortMethod)
+                .createQuery(QUERY2 + " order by cd.name" + (desc ? " desc" : " "))
                 .setParameter("searchString", "%" + searchString + "%")
                 .setFirstResult(firstResult)
                 .setMaxResults(maxResults)
@@ -126,14 +120,13 @@ public class CategoryDAOImpl implements CrudDAO<Category> {
 
     @Override
     public Long count() {
-        return (Long) sessionFactory.getCurrentSession()
-                .createQuery("select count(c) from Category c").iterate().next();
+        return null;
     }
 
     @Override
     public Long count(String searchString) {
         return (Long) sessionFactory.getCurrentSession()
-                .createQuery("select count(distinct c) from Category c inner join c.descriptions cd where cd.name like :searchString")
+                .createQuery(QUERY3)
                 .setParameter("searchString", "%" + searchString + "%")
                 .iterate().next();
     }

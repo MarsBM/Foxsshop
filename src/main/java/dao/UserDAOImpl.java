@@ -41,22 +41,22 @@ public class UserDAOImpl implements CrudDAO<User> {
     }
 
     @Override
-    public List<User> list(String sortBy, String sortMethod) {
+    public List<User> list(String sortBy, boolean desc) {
         return null;
     }
 
     @Override
-    public List<User> list(int firstResult, int maxResults, String sortBy, String sortMethod) {
+    public List<User> list(int firstResult, int maxResults, String sortBy, boolean desc) {
         return null;
     }
 
     @Override
-    public List<User> list(String searchString, String sortBy, String sortMethod) {
+    public List<User> list(String searchString, String sortBy, boolean desc) {
         return null;
     }
 
     @Override
-    public List<User> list(int firstResult, int maxResults, String searchString, String sortBy, String sortMethod) {
+    public List<User> list(int firstResult, int maxResults, String searchString, String sortBy, boolean desc) {
         return null;
     }
 

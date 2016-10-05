@@ -1,8 +1,10 @@
 package domain.category;
 
 import domain.product.Product;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
@@ -22,6 +24,7 @@ public class Category implements Serializable{
             name="Category_descriptions",
             joinColumns=@JoinColumn(name="category")
     )
+    @Valid
     private List<CategoryDescription> descriptions;
 
     private String imageFilePath;

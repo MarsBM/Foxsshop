@@ -1,8 +1,10 @@
 package domain.category;
 
 import domain.localization.Language;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -16,6 +18,7 @@ public class CategoryDescription implements Serializable{
     private Language language;
 
     @Column(name = "name")
+    @NotBlank
     private String name;
 
     @Column(name = "description")
