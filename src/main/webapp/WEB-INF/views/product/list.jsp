@@ -19,6 +19,7 @@
 <spring:message code="label.image" var="label_image"/>
 <spring:message code="label.name" var="label_name"/>
 <spring:message code="label.category" var="label_category"/>
+<spring:message code="label.options" var="label_options"/>
 <spring:message code="label.list.empty" var="label_list_empty"/>
 <spring:message code="text.confirm.delete" var="text_confirm_delete"/>
 <html>
@@ -97,6 +98,9 @@
                                     <th id="category">
                                         ${label_category}
                                     </th>
+                                    <th id="options">
+                                        ${label_options}
+                                    </th>
                                     <th>
                                         <a href="${edit_btn}" class="btn btn-primary">
                                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -115,7 +119,7 @@
                                 <c:forEach items="${products}" var="p">
 
                                     <tr id="${p.id}">
-                                        <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                        <td <%--class="col-xs-2 col-sm-2 col-md-2 col-lg-2"--%>>
                                             <%--<img class="img-responsive center-block" style="max-height: 150px; max-width: 100%" src="${p.imageFilePath}" alt="${c.imageFilePath}">--%>
                                         </td>
                                         <td class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
@@ -125,16 +129,23 @@
                                                 </c:if>
                                             </c:forEach>
                                         </td>
-                                        <td class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                                            <c:forEach items="${p.categories}" var="с">
-                                                <c:forEach items="${с.descriptions}" var="d">
+                                        <td <%--class="col-xs-8 col-sm-8 col-md-8 col-lg-8"--%>>
+                                            <c:forEach items="${p.categories}" var="c">
+                                                <c:forEach items="${c.descriptions}" var="d">
                                                     <c:if test="${d.language.code eq locale}">
                                                         <p class="text-left">${d.name}</p>
                                                     </c:if>
                                                 </c:forEach>
                                             </c:forEach>
                                         </td>
-                                        <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+
+                                        <td <%--class="col-xs-8 col-sm-8 col-md-8 col-lg-8"--%>>
+                                            <c:forEach items="${p.options}" var="o">
+                                                <p>${o.name} (${o.quantity})</p>
+                                            </c:forEach>
+                                        </td>
+
+                                        <td <%--class="col-xs-2 col-sm-2 col-md-2 col-lg-2"--%>>
                                             <a href="${edit_btn}?id=${p.id}" class="btn btn-primary">
                                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                             </a>

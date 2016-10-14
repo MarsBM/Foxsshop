@@ -73,6 +73,7 @@ public class Categories {
         if (added.equals("true")) model.addAttribute("success", "category.success.added.new");
         if (updated.equals("true")) model.addAttribute("success", "category.success.updated");
         if (deleted.equals("true")) model.addAttribute("success", "category.success.deleted");
+        if (deleted.equals("false")) model.addAttribute("error", "category.err.deleted");
         model.addAttribute("sortBy", sortBy);
         model.addAttribute("categories",categories);
         model.addAttribute("resultsOnPage", resultsOnPage);
@@ -110,6 +111,8 @@ public class Categories {
 
     @RequestMapping(value = "/delete")
     public String delete(@RequestParam Integer id) {
+        Category category = categoryService.get(id);
+        if (!category.getProducts().isEmpty()) return "redirect:/categories/list?deleted=false";
         categoryService.delete(id);
         return "redirect:/categories/list?deleted=true";
     }

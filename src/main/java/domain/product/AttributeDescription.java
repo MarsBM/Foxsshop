@@ -9,14 +9,10 @@ import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
 /**
- * Created by Mars on 29.09.2016.
+ * Created by Mars on 12.10.2016.
  */
 @Embeddable
-public class ProductDescription implements Serializable {
-
-    @ManyToOne
-    @JoinColumn(name = "language")
-    private Language language;
+public class AttributeDescription implements Serializable {
 
     @Column(name = "name")
     private String name;
@@ -24,20 +20,16 @@ public class ProductDescription implements Serializable {
     @Column(name = "description")
     private String description;
 
-    public ProductDescription() {
+    @ManyToOne
+    @JoinColumn(name = "language")
+    private Language language;
+
+    public AttributeDescription() {
     }
 
-    public ProductDescription(Language language, String name, String description) {
-        this.language = language;
+    public AttributeDescription(String name, String description, Language language) {
         this.name = name;
         this.description = description;
-    }
-
-    public Language getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(Language language) {
         this.language = language;
     }
 
@@ -57,24 +49,32 @@ public class ProductDescription implements Serializable {
         this.description = description;
     }
 
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ProductDescription that = (ProductDescription) o;
+        AttributeDescription that = (AttributeDescription) o;
 
-        if (language != null ? !language.equals(that.language) : that.language != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        return description != null ? description.equals(that.description) : that.description == null;
+        if (description != null ? !description.equals(that.description) : that.description != null) return false;
+        return language != null ? language.equals(that.language) : that.language == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = language != null ? language.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
+        int result = name != null ? name.hashCode() : 0;
         result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (language != null ? language.hashCode() : 0);
         return result;
     }
 }

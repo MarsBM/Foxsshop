@@ -65,22 +65,25 @@ public class ProductDAOImpl implements CrudDAO<Product> {
 
     @Override
     public Product get(Object o) {
-        return null;
+        return sessionFactory.getCurrentSession().get(Product.class, (Long) o);
     }
 
     @Override
     public void delete(Object o) {
-
+        Product product = sessionFactory.getCurrentSession().get(Product.class, (Long) o);
+        if (null != product) {
+            sessionFactory.getCurrentSession().delete(product);
+        }
     }
 
     @Override
     public void save(Product product) {
-
+        sessionFactory.getCurrentSession().save(product);
     }
 
     @Override
     public void update(Product product) {
-
+        sessionFactory.getCurrentSession().update(product);
     }
 
     @Override

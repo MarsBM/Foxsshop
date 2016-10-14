@@ -12,9 +12,9 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/">ControlPanel<span class="sr-only">(current)</span></a></li>
                 <li><a href="<c:url value="/users/list" />">Users</a></li>
-                <li><a href="<c:url value="/roles/list" />">UserRoles</a></li>
-                <li><a href="<c:url value="/categories/list" />">Categories</a></li>
-                <li><a href="<c:url value="/products/list" />">Products</a></li>
+                <li><a href="<c:url value="/roles/list" />"><spring:message code="role.page.title"/></a></li>
+                <li><a href="<c:url value="/categories/list" />"><spring:message code="category.page.title"/></a></li>
+                <li><a href="<c:url value="/products/list" />"><spring:message code="product.page.title"/></a></li>
                 <li><a href="<c:url value="/files" />">filemanager</a></li>
             </ul>
             <c:if test="${languages != null}">

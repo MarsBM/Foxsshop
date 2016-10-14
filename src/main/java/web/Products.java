@@ -1,17 +1,25 @@
 package web;
 
+import domain.category.Category;
 import domain.localization.Language;
+import domain.manufacturer.Manufacturer;
+import domain.product.Attribute;
 import domain.product.Product;
+import domain.product.ProductDescription;
+import domain.product.ProductOption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import service.Utils;
 import service.interfaces.CrudService;
 
-import java.util.List;
-import java.util.Locale;
+import javax.validation.Valid;
+import java.util.*;
 
 /**
  * Created by Mars on 04.10.2016.
@@ -25,6 +33,15 @@ public class Products {
 
     @Autowired
     private CrudService<Language> languageService;
+
+    @Autowired
+    private CrudService<Manufacturer> manufacturerService;
+
+    @Autowired
+    private CrudService<Category> categoryService;
+
+    @Autowired
+    private CrudService<Attribute> attributeService;
 
     private Integer resultsOnPage = 25;
     private String sortBy = "nameAsc";
@@ -72,6 +89,7 @@ public class Products {
         if (added.equals("true")) model.addAttribute("success", "product.success.added.new");
         if (updated.equals("true")) model.addAttribute("success", "product.success.updated");
         if (deleted.equals("true")) model.addAttribute("success", "product.success.deleted");
+        if (deleted.equals("false")) model.addAttribute("success", "product.err.deleted");
         model.addAttribute("sortBy", sortBy);
         model.addAttribute("products", products);
         model.addAttribute("resultsOnPage", resultsOnPage);
@@ -82,4 +100,90 @@ public class Products {
         model.addAttribute("activeLang", languageService.get(locale.getLanguage()).getName());
         return "product/list";
     }
+
+    @RequestMapping(value = "/delete")
+    public String delete(@RequestParam Long id) {
+        Product product = productService.get(id);
+        if (product.getCartItems().isEmpty() && product.getOrderItems().isEmpty()) {
+            productService.delete(id);
+            return "redirect:/products/list?deleted=true";
+        } else {
+            return "redirect:/products/list?deleted=false";
+        }
+    }
+
+    @RequestMapping(value = "/edit")
+    public String edit(@RequestParam(required = false) Long id,
+                       Model model, Locale locale) {
+        List<Language> languages = languageService.list();
+        Product product;
+        List<ProductDescription> descriptions;
+        List<ProductOption> options;
+        List<Manufacturer> manufacturers = manufacturerService.list();
+        if (id == null) {
+            product = new Product();
+            descriptions = new ArrayList<>();
+            options = new ArrayList<>();
+            product.setDescriptions(descriptions);
+            product.setOptions(options);
+        } else {
+            product = productService.get(id);
+            descriptions = product.getDescriptions();
+        }
+        //Якщо в категорії в описах немає всім мов, то це створить відповідні записи в базу даних
+        if (descriptions.size() < languages.size()) {
+            for (Language l : languages) {
+                boolean contains = false;
+                for (ProductDescription d : descriptions) {
+                    if (d.getLanguage().equals(l)) {
+                        contains = true;
+                        break;
+                    }
+                }
+                if (!contains) descriptions.add(new ProductDescription(l, "", ""));
+            }
+        }
+        model.addAttribute("product", product);
+        model.addAttribute("languages", languages);
+        model.addAttribute("categories_list", categoryService.list());
+        model.addAttribute("attributes_list", attributeService.list());
+        model.addAttribute("locale", locale.getLanguage());
+        model.addAttribute("manufacturers", manufacturers);
+        return "product/edit";
+    }
+
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public String save(@ModelAttribute @Valid Product product,
+                       BindingResult result,
+                       Model model, Locale locale) {
+        if (result.hasErrors()) {
+            List<Language> languages = languageService.list();
+            List<Manufacturer> manufacturers = manufacturerService.list();
+            model.addAttribute("product", product);
+            model.addAttribute("languages", languages);
+            model.addAttribute("categories_list", categoryService.list());
+            model.addAttribute("attributes_list", attributeService.list());
+            model.addAttribute("locale", locale.getLanguage());
+            model.addAttribute("manufacturers", manufacturers);
+            model.addAttribute("error", "error.field");
+            return "product/edit";
+        } else {
+            if (null != product){
+                if (!product.getCategories().isEmpty()) {
+                    product.setCategories(new ArrayList<>(new HashSet<>(product.getCategories())));
+                }
+                product.setModifyDate(new Date());
+                if (product.getId() == null) {
+                    product.setCreateDate(new Date());
+                    productService.save(product);
+                    return "redirect:/products/list?added=true";
+                } else {
+                    productService.update(product);
+                    return "redirect:/products/list?updated=true";
+                }
+            }
+            return "redirect:/products/list";
+        }
+    }
+
 }

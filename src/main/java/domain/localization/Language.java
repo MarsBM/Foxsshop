@@ -3,12 +3,13 @@ package domain.localization;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 /**
  * Created by Mars on 25.09.2016.
  */
 @Entity
-public class Language {
+public class Language implements Serializable {
 
     @Column(name = "name")
     private String name;

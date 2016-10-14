@@ -1,4 +1,4 @@
-package domain.product;
+package domain.manufacturer;
 
 import domain.localization.Language;
 
@@ -9,10 +9,10 @@ import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
 /**
- * Created by Mars on 29.09.2016.
+ * Created by Mars on 10.10.2016.
  */
 @Embeddable
-public class ProductDescription implements Serializable {
+public class ManufacturerDescription implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "language")
@@ -24,10 +24,10 @@ public class ProductDescription implements Serializable {
     @Column(name = "description")
     private String description;
 
-    public ProductDescription() {
+    public ManufacturerDescription() {
     }
 
-    public ProductDescription(Language language, String name, String description) {
+    public ManufacturerDescription(Language language, String name, String description) {
         this.language = language;
         this.name = name;
         this.description = description;
@@ -62,7 +62,7 @@ public class ProductDescription implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ProductDescription that = (ProductDescription) o;
+        ManufacturerDescription that = (ManufacturerDescription) o;
 
         if (language != null ? !language.equals(that.language) : that.language != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;

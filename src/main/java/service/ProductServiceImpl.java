@@ -61,22 +61,22 @@ public class ProductServiceImpl implements CrudService<Product> {
 
     @Override
     public Product get(Object o) {
-        return null;
+        return crudDAO.get(o);
     }
 
     @Override
     public void delete(Object o) {
-
+        crudDAO.delete(o);
     }
 
     @Override
     public void save(Product product) {
-
+        crudDAO.save(product);
     }
 
     @Override
     public void update(Product product) {
-
+        crudDAO.update(product);
     }
 
     @Override

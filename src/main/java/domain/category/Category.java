@@ -1,11 +1,14 @@
 package domain.category;
 
 import domain.product.Product;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import javax.validation.Valid;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -19,12 +22,13 @@ public class Category implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection
     @CollectionTable(
             name="Category_descriptions",
             joinColumns=@JoinColumn(name="category")
     )
     @Valid
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<CategoryDescription> descriptions;
 
     private String imageFilePath;
@@ -32,9 +36,18 @@ public class Category implements Serializable{
     private Boolean enabled = true;
 
     @ManyToMany(mappedBy = "categories")
-    private Set<Product> products;
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Product> products = new ArrayList<>();
 
     public Category() {
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     public Integer getId() {
