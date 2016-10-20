@@ -3,6 +3,7 @@ package domain.customer;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -22,7 +23,7 @@ public class CustomerGroup {
     private String name;
 
     @OneToMany(mappedBy = "customerGroup")
-    private Set<Customer> customers;
+    private List<Customer> customers;
 
     public CustomerGroup() {
     }
@@ -43,11 +44,11 @@ public class CustomerGroup {
         this.name = name;
     }
 
-    public Set<Customer> getCustomers() {
+    public List<Customer> getCustomers() {
         return customers;
     }
 
-    public void setCustomers(Set<Customer> customers) {
+    public void setCustomers(List<Customer> customers) {
         this.customers = customers;
     }
 

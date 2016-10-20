@@ -59,6 +59,7 @@ public class ApplicationConfigurer extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/views/**").addResourceLocations("/views/");
         registry.addResourceHandler("/errors/**").addResourceLocations("/errors/");
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+        registry.addResourceHandler("/fonts/**").addResourceLocations("/fonts/");
     }
 
     @Override

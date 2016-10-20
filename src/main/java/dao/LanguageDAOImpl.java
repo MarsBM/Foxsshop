@@ -20,7 +20,7 @@ public class LanguageDAOImpl implements CrudDAO<Language> {
     @SuppressWarnings("unchecked")
     @Override
     public List<Language> list() {
-        return sessionFactory.getCurrentSession().createQuery("from Language l").list();
+        return sessionFactory.getCurrentSession().createQuery("from Language l order by l.sortOrder").list();
     }
 
     @Override

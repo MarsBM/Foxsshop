@@ -2,10 +2,7 @@ package domain.customer;
 
 import domain.product.Product;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -14,17 +11,18 @@ import java.io.Serializable;
 @Entity
 public class CartItem implements Serializable{
 
+    @Id
+    @ManyToOne
+    @JoinColumn(name = "customer")
+    private Customer customer;
+
+    @Column(name = "quantity_")
     private Integer quantity;
 
     @Id
     @ManyToOne
     @JoinColumn(name = "product")
     private Product product;
-
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "customer")
-    private Customer customer;
 
     public CartItem() {
     }
@@ -51,5 +49,26 @@ public class CartItem implements Serializable{
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CartItem cartItem = (CartItem) o;
+
+        if (customer != null ? !customer.equals(cartItem.customer) : cartItem.customer != null) return false;
+        if (quantity != null ? !quantity.equals(cartItem.quantity) : cartItem.quantity != null) return false;
+        return product != null ? product.equals(cartItem.product) : cartItem.product == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = customer != null ? customer.hashCode() : 0;
+        result = 31 * result + (quantity != null ? quantity.hashCode() : 0);
+        result = 31 * result + (product != null ? product.hashCode() : 0);
+        return result;
     }
 }

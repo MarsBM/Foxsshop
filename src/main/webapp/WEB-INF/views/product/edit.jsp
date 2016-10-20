@@ -32,6 +32,11 @@
 <spring:message code="label.subtractStock" var="label_subtractStock"/>
 <spring:message code="label.enable" var="label_enable"/>
 <spring:message code="label.enableDate" var="label_enableDate"/>
+<spring:message code="label.quantityOfVotes" var="label_quantityOfVotes"/>
+<spring:message code="label.LxWxH" var="label_LxWxH"/>
+<spring:message code="label.weight" var="label_weight"/>
+<spring:message code="label.views" var="label_views"/>
+<spring:message code="label.review" var="label_reviews"/>
 <spring:message code="err.name" var="err_name"/>
 <spring:message code="label.name" var="label_name"/>
 <spring:message code="err.description" var="err_description"/>
@@ -44,7 +49,8 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <%--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">--%>
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
         <link rel="stylesheet" href="/css/custom.css" >
 
         <title>${page_title}</title>
@@ -97,34 +103,40 @@
                                     <li role="presentation"><a href="#attributes" aria-controls="attributes" role="tab" data-toggle="tab">
                                         ${label_attributes}
                                     </a></li>
+                                    <%--<li role="presentation"><a href="#review" aria-controls="review" role="tab" data-toggle="tab">
+                                            ${label_reviews}
+                                    </a></li>--%>
                                 </ul>
 
                                 <!-- Tab panes -->
                                 <div class="tab-content">
+
                                     <div role="tabpanel" class="tab-pane active" id="main">
 
+                                        <br />
                                         <div class="form-group">
                                             <form:label path="id" class="col-sm-2 control-label">
                                                 ${label_id}
                                             </form:label>
-                                            <div class="col-sm-10">
-                                                <c:choose>
+                                            <div class="col-sm-2">
+                                                <form:input path="id" class="form-control" readonly="true"/>
+                                                <%--<c:choose>
                                                     <c:when test="${product.id != null}">
                                                         <p class="form-control-static">${product.id}</p>
                                                     </c:when>
                                                     <c:otherwise>
                                                         <p class="form-control-static">${label_empty_field}</p>
                                                     </c:otherwise>
-                                                </c:choose>
+                                                </c:choose>--%>
                                             </div>
-                                            <form:hidden path="id"/>
+                                            <%--<form:hidden path="id"/>--%>
                                         </div>
 
                                         <div class="form-group">
                                             <form:label path="manufacturer.id" class="col-sm-2 control-label">
                                                 ${label_manufacturer}
                                             </form:label>
-                                            <div class="col-sm-10">
+                                            <div class="col-sm-5">
                                                 <form:select path="manufacturer.id" class="form-control">
                                                     <c:forEach items="${manufacturers}" var="m">
                                                         <c:forEach items="${m.descriptions}" var="d">
@@ -141,7 +153,7 @@
                                             <form:label path="price" class="col-sm-2 control-label">
                                                 ${label_price}
                                             </form:label>
-                                            <div class="col-sm-10">
+                                            <div class="col-sm-4">
                                                 <form:input path="price" class="form-control" />
                                             </div>
                                         </div>
@@ -150,7 +162,7 @@
                                             <form:label path="quantity" class="col-sm-2 control-label">
                                                 ${label_quantity}
                                             </form:label>
-                                            <div class="col-sm-10">
+                                            <div class="col-sm-2">
                                                 <form:input path="quantity" class="form-control" />
                                             </div>
                                         </div>
@@ -159,7 +171,7 @@
                                             <form:label path="minimumQuantity" class="col-sm-2 control-label">
                                                 ${label_minimumQuantity}
                                             </form:label>
-                                            <div class="col-sm-10">
+                                            <div class="col-sm-2">
                                                 <form:input path="minimumQuantity" class="form-control" />
                                             </div>
                                         </div>
@@ -168,8 +180,17 @@
                                             <form:label path="rating" class="col-sm-2 control-label">
                                                 ${label_rating}
                                             </form:label>
-                                            <div class="col-sm-10">
+                                            <div class="col-sm-2">
                                                 <form:input path="rating" class="form-control" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <form:label path="quantityOfVotes" class="col-sm-2 control-label">
+                                                ${label_quantityOfVotes}
+                                            </form:label>
+                                            <div class="col-sm-2">
+                                                <form:input path="quantityOfVotes" class="form-control" />
                                             </div>
                                         </div>
 
@@ -177,8 +198,50 @@
                                             <form:label path="subtractStock" class="col-sm-2 control-label">
                                                 ${label_subtractStock}
                                             </form:label>
-                                            <div class="col-sm-10">
+                                            <div class="col-sm-2">
                                                 <form:checkbox path="subtractStock" class="form-control" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <form:label path="length" class="col-sm-2 control-label">
+                                                ${label_LxWxH}
+                                            </form:label>
+                                            <div class="col-sm-2">
+                                                <form:input path="length" class="form-control" />
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <form:input path="width" class="form-control" />
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <form:input path="height" class="form-control" />
+                                            </div>
+                                        </div>
+
+                                        <%--<div class="form-group">
+                                            <form:label path="width" class="col-sm-2 control-label">
+                                                ${label_width}
+                                            </form:label>
+                                            <div class="col-sm-10">
+                                                <form:input path="width" class="form-control" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <form:label path="height" class="col-sm-2 control-label">
+                                                ${label_height}
+                                            </form:label>
+                                            <div class="col-sm-10">
+                                                <form:input path="height" class="form-control" />
+                                            </div>
+                                        </div>--%>
+
+                                        <div class="form-group">
+                                            <form:label path="weight" class="col-sm-2 control-label">
+                                                ${label_weight}
+                                            </form:label>
+                                            <div class="col-sm-2">
+                                                <form:input path="weight" class="form-control" />
                                             </div>
                                         </div>
 
@@ -186,7 +249,7 @@
                                             <form:label path="enable" class="col-sm-2 control-label">
                                                 ${label_enable}
                                             </form:label>
-                                            <div class="col-sm-10">
+                                            <div class="col-sm-2">
                                                 <form:checkbox path="enable" class="form-control" />
                                             </div>
                                         </div>
@@ -195,7 +258,7 @@
                                             <form:label path="enableDate" class="col-sm-2 control-label">
                                                 ${label_enableDate}
                                             </form:label>
-                                            <div class="col-sm-10">
+                                            <div class="col-sm-4">
                                                 <form:input type="datetime-local" path="enableDate" class="form-control" />
                                             </div>
                                         </div>
@@ -204,7 +267,7 @@
                                             <form:label path="createDate" class="col-sm-2 control-label">
                                                 ${label_createDate}
                                             </form:label>
-                                            <div class="col-sm-10">
+                                            <div class="col-sm-4">
                                                 <form:input path="createDate" class="form-control" readonly="true" />
                                             </div>
                                         </div>
@@ -213,8 +276,17 @@
                                             <form:label path="modifyDate" class="col-sm-2 control-label">
                                                 ${label_modifyDate}
                                             </form:label>
-                                            <div class="col-sm-10">
+                                            <div class="col-sm-4">
                                                 <form:input path="modifyDate" class="form-control" readonly="true" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <form:label path="views" class="col-sm-2 control-label">
+                                                ${label_views}
+                                            </form:label>
+                                            <div class="col-sm-2">
+                                                <form:input path="views" class="form-control" readonly="true" />
                                             </div>
                                         </div>
 
@@ -436,8 +508,67 @@
                                             </table>
                                         </div>
 
-                                    </div>
+                                    </div><%--tabpanel attributes--%>
 
+
+                                    <%--<div role="tabpanel" class="tab-pane" id="review">
+
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th>
+                                                        Автор, місто, дата, Рейтинг
+                                                    </th>
+                                                    <th>
+                                                        Текст
+                                                    </th>
+                                                    <th>
+                                                        Відповідь
+                                                    </th>
+                                                    <th>
+                                                        Активувати
+                                                    </th>
+                                                    <th>
+                                                        <button class="btn btn-primary" type="button" onclick="addReview()">
+                                                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                                        </button>
+                                                    </th>
+                                                </tr>
+                                                </thead>
+                                                <tbody id="reviews_table_body">
+                                                    <c:forEach items="${product.review}" var="r" varStatus="st">
+                                                        <tr class="review" id="review_${st.index}">
+                                                            <form:hidden path="review[${st.index}].product.id" class="form-control" value="${product.id}"/>
+                                                            <form:hidden path="review[${st.index}].id" class="form-control" value="${r.id}"/>
+                                                            <td>
+                                                                <form:input path="review[${st.index}].author" class="form-control" />
+                                                                <form:input path="review[${st.index}].city" class="form-control" />
+                                                                <form:input path="review[${st.index}].date" class="form-control" type="datetime-local" />
+                                                                <form:input path="review[${st.index}].rating" class="form-control" />
+                                                            </td>
+                                                            <td>
+                                                                <form:textarea path="review[${st.index}].text" class="form-control" />
+                                                            </td>
+                                                            <td>
+                                                                <form:textarea path="review[${st.index}].answer" class="form-control" />
+                                                            </td>
+                                                            <td>
+                                                                <form:checkbox path="review[${st.index}].status" class="form-control" />
+                                                            </td>
+                                                            <td>
+                                                                <button class="btn btn-danger" type="button" onclick="delReview(${st.index})" >
+                                                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    </c:forEach>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>&lt;%&ndash;tabpanel review&ndash;%&gt;
+--%>
                                 </div>
                             </div>
                         </div><%--.panel-body--%>
@@ -458,9 +589,11 @@
             </div>
         </div> <%--.container--%>
     </form:form>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="/js/productOptions.js"></script>
+    <%--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>--%>
+    <script src="/js/jquery-1.12.4.min.js"></script>
+    <%--<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>--%>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/product.js"></script>
     <script src="/js/custom.js"></script>
     </body>
 </html>

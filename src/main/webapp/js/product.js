@@ -108,3 +108,47 @@ function delAttribute(num) {
         $('.attribute:nth-child('+k+') td:last button').attr('onclick', 'delAttribute(' + n + ')');
     }
 };
+/*
+function addReview(){
+    var i = $('.review:last').attr('id');
+    if (i != undefined) {
+        i = i.replace('review_', '');
+        i++;
+    } else i = 0;
+
+    $('<tr class="review" id="review_' + i + '">').appendTo('#reviews_table_body');
+
+    $('<input id="reviews' + i + '.product.id" name="reviews[' + i + '].product.id" class="form-control" type="hidden" value="">').appendTo('#review_' + i);
+    $('<input id="reviews' + i + '.id" name="reviews[' + i + '].id" class="form-control" type="hidden" value="">').appendTo('#review_' + i);
+
+
+    $('<td>' +
+        '<input id="reviews' + i + '.author" name="reviews[' + i + '].author" class="form-control" type="text" value="">' +
+        '<input id="reviews' + i + '.city" name="reviews[' + i + '].city" class="form-control" type="text" value="">' +
+        '<input id="reviews' + i + '.date" name="reviews[' + i + '].date" class="form-control" type="datetime-local" value="">' +
+        '<input id="reviews' + i + '.rating" name="reviews[' + i + '].rating" class="form-control" type="text" value="">' +
+        '</td>').appendTo('#review_' + i);
+
+    $('<td>' +
+        '<textarea id="reviews' + i + '.text" name="reviews[' + i + '].text" class="form-control">' +
+        '</textarea></td>').appendTo('#review_' + i);
+
+
+    $('<td>' +
+        '<textarea id="reviews' + i + '.answer" name="reviews[' + i + '].answer" class="form-control">' +
+        '</textarea></td>').appendTo('#review_' + i);
+
+    $('<td>' +
+        '<input id="reviews' + i + '.status1" name="reviews[' + i + '].status" class="form-control" type="checkbox" value="true" checked="checked">' +
+        '<input name="_reviews[' + i + '].status" type="hidden" value="on">' +
+        '</td>').appendTo('#review_' + i);
+
+    $('<td>' +
+        '<button class="btn btn-danger" type="button" onclick="delReview(' + i + ')">' +
+        '<span class="glyphicon glyphicon-remove" aria-hidden="true">' +
+        '</span></button></td>').appendTo('#review_' + i);
+
+}
+function delReview(num){
+
+}*/

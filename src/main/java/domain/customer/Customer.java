@@ -1,6 +1,9 @@
 package domain.customer;
 
 import domain.order.Order;
+import domain.product.Product;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -16,64 +19,68 @@ import java.util.Set;
  * Created by Mars on 12.08.2016.
  */
 @Entity
-@Table(name = "Customers")
+@Table(name = "customers")
 public class Customer implements Serializable{
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id_")
     private Long id;
 
     @Id
-    @Column(name = "email", unique = true)
+    @Column(name = "email_", unique = true)
     private String email;
 
-    @Column(name = "first_name", length = 25)
+    @Column(name = "first_name_", length = 25)
     private String firstName;
 
-    @Column(name = "last_name", length = 25)
+    @Column(name = "last_name_", length = 25)
     private String lastName;
 
     @ElementCollection
     @CollectionTable(
-            name="PHONE",
-            joinColumns=@JoinColumn(name="OWNER_ID")
+            name="customers_telephones",
+            joinColumns=@JoinColumn(name="customer_")
     )
-    @Column(name="PHONE_NUMBER")
+    @Column(name="phone_number_")
     private List<String> telephones;
 
-    @Column(name = "password")
+    @Column(name = "password_")
     private String password;
 
-    @Column(name = "cart")
-    private String cart;
-
-    @Column(name = "wishlist")
-    private String wishlist;
-
-    @Column(name = "newsletter")
+    @Column(name = "newsletter_")
     private Boolean newsletter;
 
     @ManyToOne
-    @JoinColumn(name = "customer_group_id")
+    @JoinColumn(name = "customer_group_")
     private CustomerGroup customerGroup;
 
-    @Column(name = "ip")
+    @Column(name = "ip_")
     private String ip;
 
-    @Column(name = "status")
+    @Column(name = "status_")
     private Boolean isEnabled;
 
-    @Column(name = "create_date")
+    @Column(name = "create_date_")
     private Date createDate;
 
-    @Column(name = "modify_date")
+    @Column(name = "modify_date_")
     private Date modifyDate;
 
-    @OneToMany(mappedBy = "customer")
-    private Set<CartItem> cartItems;
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<CartItem> cartItems;
 
     @OneToMany(mappedBy = "customer")
-    private Set<Order> orders;
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Order> orders;
+
+    @ElementCollection
+    @CollectionTable(
+            name="customer_wishlist",
+            joinColumns=@JoinColumn(name="customer_")
+    )
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Product> wishlist;
 
     public Customer() {
     }
@@ -126,22 +133,6 @@ public class Customer implements Serializable{
         this.password = password;
     }
 
-    public String getCart() {
-        return cart;
-    }
-
-    public void setCart(String cart) {
-        this.cart = cart;
-    }
-
-    public String getWishlist() {
-        return wishlist;
-    }
-
-    public void setWishlist(String wishlist) {
-        this.wishlist = wishlist;
-    }
-
     public Boolean getNewsletter() {
         return newsletter;
     }
@@ -188,5 +179,29 @@ public class Customer implements Serializable{
 
     public void setModifyDate(Date modifyDate) {
         this.modifyDate = modifyDate;
+    }
+
+    public List<CartItem> getCartItems() {
+        return cartItems;
+    }
+
+    public void setCartItems(List<CartItem> cartItems) {
+        this.cartItems = cartItems;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    public List<Product> getWishlist() {
+        return wishlist;
+    }
+
+    public void setWishlist(List<Product> wishlist) {
+        this.wishlist = wishlist;
     }
 }

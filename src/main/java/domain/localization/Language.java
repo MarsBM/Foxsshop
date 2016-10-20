@@ -22,7 +22,10 @@ public class Language implements Serializable {
     private String image;
 
     @Column(name = "enabled")
-    private Boolean enabled;
+    private Boolean enabled = true;
+
+    @Column(name = "sort_order")
+    private Integer sortOrder = 0;
 
     public Language() {
     }
@@ -32,6 +35,22 @@ public class Language implements Serializable {
         this.code = code;
         this.image = image;
         this.enabled = enabled;
+    }
+
+    public Language(String name, String code, String image, Boolean enabled, Integer sortOrder) {
+        this.name = name;
+        this.code = code;
+        this.image = image;
+        this.enabled = enabled;
+        this.sortOrder = sortOrder;
+    }
+
+    public Integer getSortOrder() {
+        return sortOrder;
+    }
+
+    public void setSortOrder(Integer sortOrder) {
+        this.sortOrder = sortOrder;
     }
 
     public String getName() {

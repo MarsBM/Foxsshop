@@ -104,7 +104,7 @@ public class Products {
     @RequestMapping(value = "/delete")
     public String delete(@RequestParam Long id) {
         Product product = productService.get(id);
-        if (product.getCartItems().isEmpty() && product.getOrderItems().isEmpty()) {
+        if (product.getOrderItems().isEmpty()) {
             productService.delete(id);
             return "redirect:/products/list?deleted=true";
         } else {

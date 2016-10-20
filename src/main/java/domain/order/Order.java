@@ -2,22 +2,34 @@ package domain.order;
 
 import domain.customer.Customer;
 import domain.user.User;
+import org.hibernate.annotations.IndexColumn;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
  * Created by Mars on 29.09.2016.
  */
 @Entity
-@Table(name = "order_")
+@Table(name = "orders_")
 public class Order implements Serializable{
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_")
     private Integer id;
-    private String state;
+
+    @OneToMany(mappedBy = "order")
+    @OrderColumn(name = "order_state_index")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<OrderStateItem> orderStateItems;
+
     private Date created;
     private Date shipped;
     private Date delivered;
@@ -27,15 +39,19 @@ public class Order implements Serializable{
     @JoinColumn(name = "customer")
     private Customer customer;
 
-    @OneToMany(mappedBy = "order")
-    private Set<OrderItem> orderItems;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<OrderItem> orderItems;
 
     @ManyToOne
     @JoinColumn(name = "manager")
     private User manager;
 
+    private String comment;
+
     public Order() {
     }
+
 
     public Integer getId() {
         return id;
@@ -43,14 +59,6 @@ public class Order implements Serializable{
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
     }
 
     public Date getCreated() {
@@ -93,11 +101,11 @@ public class Order implements Serializable{
         this.customer = customer;
     }
 
-    public Set<OrderItem> getOrderItems() {
+    public List<OrderItem> getOrderItems() {
         return orderItems;
     }
 
-    public void setOrderItems(Set<OrderItem> orderItems) {
+    public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
     }
 
@@ -108,4 +116,5 @@ public class Order implements Serializable{
     public void setManager(User manager) {
         this.manager = manager;
     }
+
 }

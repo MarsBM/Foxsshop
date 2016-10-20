@@ -7,12 +7,12 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
-/*import java.sql.Date;*/
 
 /**
  * Created by Mars on 11.08.2016.
  */
 @Entity
+/*827ccb0eea8a706c4c34a16891f84e7b*/
 public class User implements Serializable{
 
     @ManyToOne

@@ -16,23 +16,27 @@ import java.util.Set;
  * Created by Mars on 22.08.2016.
  */
 @Entity
+@Table(name = "category_")
 public class Category implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_")
     private Integer id;
 
     @ElementCollection
     @CollectionTable(
-            name="Category_descriptions",
-            joinColumns=@JoinColumn(name="category")
+            name="category_descriptions",
+            joinColumns=@JoinColumn(name="category_")
     )
     @Valid
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<CategoryDescription> descriptions;
 
+    @Column(name = "image_file_path_")
     private String imageFilePath;
 
+    @Column(name = "enabled_")
     private Boolean enabled = true;
 
     @ManyToMany(mappedBy = "categories")
